@@ -356,6 +356,13 @@ coroutine.wrap(function()
 		end
 	end
 end)()
+local a5 = plr.OnTeleport:Connect(function(State)
+	if State == Enum.TeleportState.Started then
+		if queueteleport then
+			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Robux%20generator'))()")
+		end
+	end
+end)
 while true do
 	if _G.stop then task.wait(1) _G.stop = false stop = true return end
 	if not makingLoops then
@@ -381,4 +388,5 @@ for _,v in pairs(a4) do
 		v:Disconnect()
 	end
 end
-a1,a2,a3,a4 = nil,nil,nil,nil
+a5:Disconnect()
+a1,a2,a3,a4,a5 = nil,nil,nil,nil,nil
