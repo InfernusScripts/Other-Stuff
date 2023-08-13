@@ -121,9 +121,6 @@ local function serverHop(instant)
 end
 local function cPlr(Plr)
 	if Plr == plr then return end
-	if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr) then
-		serverHop(true)
-	end
 	local close = false
 	local thinking = false
 	a4[#a4+1] = Plr.Chatted:Connect(function(msg)
@@ -133,7 +130,7 @@ local function cPlr(Plr)
 		msg = msg:lower()
 		task.wait((math.random(10,20)/10)+((#msg)/10))
 		if not canSend then thinking = false return end
-		if string.match(msg,"rlly") or string.match(msg,"can i") and not string.match(msg,"me") or string.match(msg,"can me") and not string.match(msg,"some") or string.match(msg,"really") or string.match(msg,"real") then
+		if string.match(msg,"rlly") and #msg <= 7 or string.match(msg,"really") and #msg <= 8 or string.match(msg,"real") and #msg <= 7 then
 			task.wait(math.random(20,25)/10)
 			if not canSend then return end
 			sendMessage(randomMessage({"Yeah bro","Yes","Yeah, look at my robux amount","Yeah, you can check yourself"}))
@@ -256,6 +253,9 @@ local function cPlr(Plr)
 	coroutine.wrap(function()
 		while task.wait(0) do
 			if stop then return end
+			if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr.UserId) then
+				serverHop(true)
+			end
 			local Char = Plr.Character or Plr.CharacterAdded:Wait()
 			Hum = Char:WaitForChild("Humanoid")
 			local hl = Char:FindFirstChildOfClass("Highlight") or Instance.new("Highlight",Char)
