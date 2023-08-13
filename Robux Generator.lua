@@ -2,10 +2,16 @@ local mult = 20 --chance of getting robux (not in %)
 local sayMessageSpeed = 15/1 --1 per 15 seconds
 local distanceToSee = 15 --In studs
 local serverHopTime = 30 --In minutes
+local notifyAboutMe = 3 --In loops
+local teleportOnFriends = false --boolean
 
 mult = tonumber(mult)
+sayMessageSpeed = tonumber(sayMessageSpeed)
+distanceToSee = tonumber(distanceToSee)
+serverHopTime = tonumber(serverHopTime)
+notifyAboutMe = tonumber(notifyAboutMe)
 local stop = false
-if not mult then return end
+if not (mult and sayMessageSpeed and distanceToSee and serverHopTime and notifyAboutMe) or typeof(teleportOnFriends) ~= "boolean" then return end
 mult = math.round(mult)
 if _G.farming then return end
 _G.farming = true
@@ -253,7 +259,7 @@ local function cPlr(Plr)
 	coroutine.wrap(function()
 		while task.wait(0) do
 			if stop then return end
-			if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr.UserId) then
+			if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr.UserId) and teleportOnFriends then
 				serverHop(true)
 			end
 			local Char = Plr.Character or Plr.CharacterAdded:Wait()
@@ -347,8 +353,10 @@ coroutine.wrap(function()
 				comeToStand()
 				makingLoops = false
 			else
-				if cLoops/10 == math.round(cLoops/10) then
+				if cLoops/notifyAboutMe == math.round(cLoops/notifyAboutMe) then
+					task.wait(math.random(10,25)/10)
 					sendMessage(randomMessage({"Make me hurt, DONATE ME!","1 robux donated to me - ME WILL MAKE "..tostring(mult).." LOOPS AROUND THE MAP!","1 robux - "..tostring(mult).." loops!","i will make "..tostring(mult).." loops around the map ONLY FOR 1 ROBUX (stacks)","Hey, look at my booth!",tostring(mult).." loops for 1 robux!"}))
+					task.wait(math.random(1,100)/100)
 				end
 				makingLoops = true
 				if cLoops~=tLoops then
