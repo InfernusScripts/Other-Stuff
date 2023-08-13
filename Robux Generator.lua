@@ -146,7 +146,7 @@ local function cPlr(Plr)
 			if not canSend then return end
 			sendMessage(randomMessage({"scam lol","bro its a scam","scam bruh","SCAM","scam","lol no, thx","lol, no thx"}))
 		elseif string.match(msg,"please") or string.match(msg,"help") or string.match(msg,"pls") or string.match(msg,"want") or string.match(msg,"come") or string.match(msg,"go") and #msg <= 4 or string.match(msg,"follow") or string.match(msg,"script") or string.match(msg,"cap") or string.match(msg,"🧢") or string.match(msg,"ai") and #msg <= 4 or string.match(msg,"bot") or string.match(msg,"some") or string.match(msg,"give") or string.match(msg,"saving") or string.match(msg,"dono") or string.match(msg,"donat") or string.match(msg,"give") and (string.match(msg,"robux") or string.match(msg,"bobux") or string.match(msg,"roblox")) or string.match(msg,"come") or string.match(msg,"scam") or string.match(msg,"liar") or string.match(msg,"lol") then
-			sendMessage(randomMessage({"no","No","NO","nah","Nah"}))
+			sendMessage(randomMessage({"no","No","nah","Nah"}))
 		elseif string.match(msg,"пж") or string.match(msg,"донат") or string.match(msg,"помож") or string.match(msg,"помог") then
 			sendMessage(randomMessage({"нет","нет.","Нет","Нет.","нет!","Нет!","неа"}))
 		elseif string.match(msg,"hi") and #msg <= 5 or string.match(msg,"hello") or string.match(msg,"helo") or string.match(msg,"hey") or string.match(msg,"hola") then
