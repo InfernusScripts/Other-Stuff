@@ -4,6 +4,7 @@ local distanceToSee = 15 --In studs
 local serverHopTime = 30 --In minutes
 local notifyAboutMe = 3 --In loops
 local teleportOnFriends = false --boolean
+local doServerhops = false --boolean
 
 mult = tonumber(mult)
 sayMessageSpeed = tonumber(sayMessageSpeed)
@@ -278,7 +279,7 @@ function repeatUntilNotMakingLoops()
 	if makingLoops then repeat task.wait(0) until not makingLoops end task.wait(3) if makingLoops then repeatUntilNotMakingLoops() end
 end
 coroutine.wrap(function()
-	while task.wait(serverHopTime*60) do
+	while task.wait(serverHopTime*60) and doServerhops do
 		serverHop(false)
 	end
 end)()
