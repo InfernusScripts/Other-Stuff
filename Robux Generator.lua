@@ -15,6 +15,9 @@ local hum = char:WaitForChild("Humanoid")
 local hrp = char:WaitForChild("HumanoidRootPart")
 local makingLoops = false
 local GC = getconnections or get_signal_cons
+local fireproximityprompt = fireproximityprompt
+local request = request
+local queueteleport = queueteleport
 local a3
 if GC then
 	for i,v in pairs(GC(game.Players.LocalPlayer.Idled)) do
@@ -48,7 +51,7 @@ local function getMyBooth()
 			if not booth and v and not v:GetAttribute("BoothOwner") then
 				booth = v
 				char:PivotTo(booth.CFrame)
-				while booth.Claim.Enabled and task.wait(0) or not plr.PlayerGui.YourBooth.Adornee and task.wait(0) do
+				while booth.Claim.Enabled and task.wait(0) and fireproximityprompt or not plr.PlayerGui.YourBooth.Adornee and task.wait(0) and fireproximityprompt do
 					if stop then return end
 					booth.Claim.RequiresLineOfSight = false
 					workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position,booth.Position)
@@ -126,8 +129,8 @@ local function cPlr(Plr)
 		elseif string.match(msg,"shut") then
 			sendMessage(randomMessage({"im not going to lol","no u","mic off","mic up","imagine lol"}))
 		elseif string.match(msg," or ") or string.match(msg," или ") then
-            msg = stringreplace(msg," или "," or ")
-            msg = stringreplace(msg," or "," AHEABFA ")
+			msg = stringreplace(msg," или "," or ")
+			msg = stringreplace(msg," or "," AHEABFA ")
 			msg = stringreplace(msg,"?","")
 			msg = stringreplace(msg,"!","")
 			local actions = msg:split(" AHEABFA ")
@@ -143,7 +146,7 @@ local function cPlr(Plr)
 			msg = stringreplace(msg,"×","*")
 			msg = stringreplace(msg,"X","*")
 			msg = stringreplace(msg," ","")
-            msg = stringreplace(msg,",",".")
+			msg = stringreplace(msg,",",".")
 			msg = stringreplace(msg,"?","")
 			msg = stringreplace(msg,"!","")
 			msg = stringreplace(msg,[[\]],"/")
@@ -208,29 +211,30 @@ local function cPlr(Plr)
 		task.wait(1)
 		thinking = false
 	end)
-    local cHum = nil
-    local prevF = nil
-    if cHum ~= Hum then
-        if prevF then
-            prevF:Disconnect()
-        end
-        if Hum then
-            cHum = Hum
-            prevF = Hum:GetPropertyChangedSignal("Jump"):Connect(function()
-                if Hum.Jump then
-                    task.wait(math.random(10,25)/10)
-                    hum.Jump = true
-                    task.wait(1)
-                    hum.Jump = false
-                end
-            end)
-        end
-    end
+	local cHum = nil
+	local Hum = nil
+	local prevF = nil
+	if cHum ~= Hum then
+		if prevF then
+			prevF:Disconnect()
+		end
+		if Hum then
+			cHum = Hum
+			prevF = Hum:GetPropertyChangedSignal("Jump"):Connect(function()
+				if Hum.Jump then
+					task.wait(math.random(10,25)/10)
+					hum.Jump = true
+					task.wait(1)
+					hum.Jump = false
+				end
+			end)
+		end
+	end
 	coroutine.wrap(function()
 		while task.wait(0) do
 			if stop then return end
 			local Char = Plr.Character or Plr.CharacterAdded:Wait()
-            Hum = Char:WaitForChild("Humanoid")
+			Hum = Char:WaitForChild("Humanoid")
 			local hl = Char:FindFirstChildOfClass("Highlight") or Instance.new("Highlight",Char)
 			local pos = Char:GetPivot()
 			close = (pos.Position-hrp.Position).Magnitude <= distanceToSee
@@ -241,29 +245,34 @@ local function cPlr(Plr)
 		end
 	end)()
 end
-function repeatUntilNotMakingLoops()
-    if makingLoops then repeat task.wait(0) until not makingLoops end task.wait(3) if makingLoops then repeatUntilNotMakingLoops() end
-end
 local httprequest = request
+local function serverHop(instant)
+	if httprequest then
+		local servers = {}
+		local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100", game.PlaceId)})
+		local body = game.HttpService:JSONDecode(req.Body)
+		if body and body.data then
+			for i, v in next, body.data do
+				if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId then
+					table.insert(servers, 1, v.id)
+				end
+			end
+		end
+		if #servers > 0 then
+			if not instant then
+				repeatUntilNotMakingLoops()
+			end
+			game.TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], plr)
+		end
+	end
+end
+function repeatUntilNotMakingLoops()
+	if makingLoops then repeat task.wait(0) until not makingLoops end task.wait(3) if makingLoops then repeatUntilNotMakingLoops() end
+end
 coroutine.wrap(function()
-    while task.wait(serverHopTime*60) do
-        if httprequest then
-	    	local servers = {}
-		    local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100", PlaceId)})
-	    	local body = HttpService:JSONDecode(req.Body)
-		    if body and body.data then
-			    for i, v in next, body.data do
-				    if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId then
-					    table.insert(servers, 1, v.id)
-				    end
-		    	end
-		    end
-    		if #servers > 0 then
-                repeatUntilNotMakingLoops()
-	    		game.TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], plr)
-		    end
-	    end
-    end
+	while task.wait(serverHopTime*60) do
+		serverHop(false)
+	end
 end)()
 for i,v in pairs(game.Players:GetPlayers()) do cPlr(v)end
 local a1 = game.Players.PlayerAdded:Connect(cPlr)
@@ -319,10 +328,10 @@ a2 = raisedRobux:GetPropertyChangedSignal("Text"):Connect(function()
 	local newRobux = tonumber(getRobuxFromText(raisedRobux.Text))
 	local loops = newRobux-prevRobux
 	prevRobux = newRobux
-    task.wait(math.random(10,30)/10)
+	task.wait(math.random(10,30)/10)
 	sendMessage(randomMessage({"Thank you for donating "..tostring(loops).." robux!","Thank you for "..tostring(loops).." robux!!!","Thank you!!!","OMG, TYSM FOR "..tostring(loops).." ROBUX!","ty ^_^","Challenge is accepted - TARGET: "..tostring(loops*mult).." LOOPS."}))
 	task.wait(math.random(10,15)/10)
-    sendMessage(randomMessage({tostring(tLoops-cLoops).." loops to go!",tostring(cLoops).."/"..tostring(loops*mult),tostring(cLoops).." / "..tostring(loops*mult)}))
+	sendMessage(randomMessage({tostring(tLoops-cLoops).." loops to go!",tostring(cLoops).."/"..tostring(loops*mult),tostring(cLoops).." / "..tostring(loops*mult)}))
 	tLoops += (loops*mult)
 	--makeLoops(loops)
 end)
@@ -336,9 +345,9 @@ coroutine.wrap(function()
 				comeToStand()
 				makingLoops = false
 			else
-                if cLoops/10 == math.round(cLoops/10) then
-                    sendMessage(randomMessage({"Make me hurt, DONATE ME!","1 robux donated to me - ME WILL MAKE "..tostring(mult).." LOOPS AROUND THE MAP!","1 robux - "..tostring(mult).." loops!","i will make "..tostring(mult).." loops around the map ONLY FOR 1 ROBUX (stacks)","Hey, look at my booth!",tostring(mult).." loops for 1 robux!"}))
-                end
+				if cLoops/10 == math.round(cLoops/10) then
+					sendMessage(randomMessage({"Make me hurt, DONATE ME!","1 robux donated to me - ME WILL MAKE "..tostring(mult).." LOOPS AROUND THE MAP!","1 robux - "..tostring(mult).." loops!","i will make "..tostring(mult).." loops around the map ONLY FOR 1 ROBUX (stacks)","Hey, look at my booth!",tostring(mult).." loops for 1 robux!"}))
+				end
 				makingLoops = true
 				if cLoops~=tLoops then
 					sendMessage(randomMessage({tostring(tLoops-cLoops).." loops to go!",tostring(cLoops),"LOOP: "..tostring(cLoops),tostring(cLoops).."/"..tostring(tLoops),tostring(cLoops).." / "..tostring(tLoops)}))
@@ -359,8 +368,13 @@ end)()
 local a5 = plr.OnTeleport:Connect(function(State)
 	if State == Enum.TeleportState.Started then
 		if queueteleport then
-			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Robux%20generator'))()")
+			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Robux%20Generator.lua'))()")
 		end
+	end
+end)
+local a6 = game.Players.PlayerAdded:Connect(function(Plr)
+	if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr) then
+		serverHop(true)
 	end
 end)
 while true do
@@ -374,7 +388,7 @@ while true do
 	for i,v in pairs(char:GetDescendants()) do
 		if v and v:IsA("BasePart") then
 			v.CanTouch = false
-            v.CanCollide = false
+			v.CanCollide = false
 		end
 	end
 end
@@ -389,4 +403,6 @@ for _,v in pairs(a4) do
 	end
 end
 a5:Disconnect()
-a1,a2,a3,a4,a5 = nil,nil,nil,nil,nil
+a6:Disconnect()
+
+a1,a2,a3,a4,a5,a6 = nil,nil,nil,nil,nil,nil
