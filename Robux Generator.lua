@@ -16,8 +16,8 @@ local hrp = char:WaitForChild("HumanoidRootPart")
 local makingLoops = false
 local GC = getconnections or get_signal_cons
 local fireproximityprompt = fireproximityprompt
-local request = request
 local queueteleport = queueteleport
+local httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 local a3
 if GC then
 	for i,v in pairs(GC(game.Players.LocalPlayer.Idled)) do
@@ -99,8 +99,31 @@ function stringreplace(str,oldsymbol,newsymbol)
 	end
 	return output
 end
+local function serverHop(instant)
+	if httprequest then
+		local servers = {}
+		local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100", game.PlaceId)})
+		local body = game.HttpService:JSONDecode(req.Body)
+		if body and body.data then
+			for i, v in next, body.data do
+				if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId and v.playing >= 10 and v.playing ~= v.maxPlayers then
+					table.insert(servers, 1, v.id)
+				end
+			end
+		end
+		if #servers > 0 then
+			if not instant then
+				repeatUntilNotMakingLoops()
+			end
+			game.TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], plr)
+		end
+	end
+end
 local function cPlr(Plr)
 	if Plr == plr then return end
+	if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr) then
+		serverHop(true)
+	end
 	local close = false
 	local thinking = false
 	a4[#a4+1] = Plr.Chatted:Connect(function(msg)
@@ -245,27 +268,6 @@ local function cPlr(Plr)
 		end
 	end)()
 end
-local httprequest = request
-local function serverHop(instant)
-	if httprequest then
-		local servers = {}
-		local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100", game.PlaceId)})
-		local body = game.HttpService:JSONDecode(req.Body)
-		if body and body.data then
-			for i, v in next, body.data do
-				if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId then
-					table.insert(servers, 1, v.id)
-				end
-			end
-		end
-		if #servers > 0 then
-			if not instant then
-				repeatUntilNotMakingLoops()
-			end
-			game.TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], plr)
-		end
-	end
-end
 function repeatUntilNotMakingLoops()
 	if makingLoops then repeat task.wait(0) until not makingLoops end task.wait(3) if makingLoops then repeatUntilNotMakingLoops() end
 end
@@ -368,13 +370,8 @@ end)()
 local a5 = plr.OnTeleport:Connect(function(State)
 	if State == Enum.TeleportState.Started then
 		if queueteleport then
-			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Robux%20Generator.lua'))()")
+			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Robux%20generator'))()")
 		end
-	end
-end)
-local a6 = game.Players.PlayerAdded:Connect(function(Plr)
-	if Plr:IsFriendsWith(plr.UserId) and plr:IsFriendsWith(Plr) then
-		serverHop(true)
 	end
 end)
 while true do
