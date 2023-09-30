@@ -1,4 +1,4 @@
---if we will turn the returned table to a string, we will get ~96467 lines of code, and this is not a joke.
+--if we will turn the returned table to a string, we will get ~97449 lines of code, and this is not a joke.
 --that thing is very useful for things like a explorers and etc.
 --[[
 Template structure:
