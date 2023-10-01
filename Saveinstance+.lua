@@ -62,5 +62,3 @@ function S(Instance,FileName)
 end
 getgenv().osaveinstance = osaveinstance or saveinstance
 getgenv().saveinstance = S
-game.Players.LocalPlayer:FindFirstChild("ElevatorHandler",math.huge).Enabled = false
-S(game.StarterPlayer)
