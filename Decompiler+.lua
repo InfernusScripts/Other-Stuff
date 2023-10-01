@@ -25,7 +25,7 @@ local function ndecompile(a)
 			:gsub("require%(%(","require(")
 			:gsub("%(%(v","(v")
 			:gsub("0%)%)\10","0)\10")
-			:gsub("0%)\10v","0))\10v")
+			:gsub(",0%)\10v",",0))\10v")
 			:gsub("%) / "," / ")
 			:gsub("%) %* "," * ")
 			:gsub("%) %+ "," + ")
@@ -37,6 +37,9 @@ local function ndecompile(a)
 		toReturn = decompiledScripts[a]
 	else
 		toReturn = "--Script not exist or something went wrong!"
+	end
+	if table.pack(loadstring("local script = game"..a:GetFullName().."\10"..toReturn))[2] ~= nil then
+		toReturn = "--An error occured while decompiling.\10--The source is corrupted.\10--You can fix that only with your ugly hands.\10\10"..toReturn
 	end
 	decompileindex += 1
 	(getgenv or getfenv)().decompiledScripts = decompiledScripts
