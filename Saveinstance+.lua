@@ -1,3 +1,4 @@
+warn("")
 function S(Instance,FileName)
 	local executor = identifyexecutor():split(" ")[1]
 	local newL = "\10"
@@ -11,7 +12,11 @@ function S(Instance,FileName)
 			pcall(function()
 				toReturn = odecompile(a)
 			end)
-			if not toReturn then return "" end
+			if not toReturn then
+				return "--Failed to decompile the script"
+			elseif toReturn == "    " or toReturn == "" or toReturn == "\10" or toReturn == " " then
+				return "--Empty"
+			end
 			toReturn = (toReturn and toReturn
 				:gsub("-- Decompiled using "..executor..""..newL.."","")
 				:gsub("break","return")
@@ -19,13 +24,13 @@ function S(Instance,FileName)
 				:gsub("\10(v","\10;(v")
 				:gsub("	(v","	;(v")
 				:gsub("((\"","(\"")
-				:gsub("\"))","\")")
+				:gsub([["%)%)]],[[")]])
 				:gsub("((v","(v")
-				:gsub(")):","):")
+				:gsub([[%)%):]],[[):]])
 				:gsub("	game","	game")
 				:gsub("	(v", "	")
-				
-				or "--Failed to decompile script "..a:GetFullName())
+
+				or "--Failed to decompile the script")
 			if toReturn == "" or toReturn == " " or toReturn == "   " or toReturn == ""..newL.."" then toReturn = "--Empty" end
 			decompiledScripts[a] = toReturn
 		else
@@ -33,7 +38,7 @@ function S(Instance,FileName)
 		end
 		decompileindex += 1
 		getgenv().decompiledScripts = decompiledScripts
-		if decompileindex == 10 then
+		if decompileindex == 1 then
 			decompileindex = 0
 			game["Run Service"].RenderStepped:Wait()
 		end
@@ -48,12 +53,14 @@ function S(Instance,FileName)
 	if not osaveinstance then
 		getgenv().osaveinstance = osaveinstance
 	end
-	(osaveinstance or saveinstance)(
-	Instance or game,
-	FileName or game.MarketplaceService:GetProductInfo(game.PlaceId).Name:split(" ")[1],
-	{Decompile = true}
+	saveinstance(
+		Instance or game,
+		FileName or game.MarketplaceService:GetProductInfo(game.PlaceId).Name:split(" ")[1],
+		{Decompile = true}
 	)
 	task.wait(0)
 end
 getgenv().osaveinstance = osaveinstance or saveinstance
 getgenv().saveinstance = S
+game.Players.LocalPlayer:FindFirstChild("ElevatorHandler",math.huge).Enabled = false
+S(game.StarterPlayer)
