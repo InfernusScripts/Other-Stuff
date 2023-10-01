@@ -15,13 +15,15 @@ function S(Instance,FileName)
 			toReturn = (toReturn and toReturn
 				:gsub("-- Decompiled using "..executor..""..newL.."","")
 				:gsub("break","return")
+				:gsub("    ","	")
 				:gsub("\10(v","\10;(v")
-				:gsub("    (v","    ;(v")
 				:gsub("	(v","	;(v")
 				:gsub("((\"","(\"")
 				:gsub("\"))","\")")
 				:gsub("((v","(v")
 				:gsub(")):","):")
+				:gsub("	game","	game")
+				:gsub("	(v", "	")
 				
 				or "--Failed to decompile script "..a:GetFullName())
 			if toReturn == "" or toReturn == " " or toReturn == "   " or toReturn == ""..newL.."" then toReturn = "--Empty" end
