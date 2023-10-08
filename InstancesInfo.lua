@@ -300,7 +300,7 @@ data.Part = {
 ]]--
 
 local returnData = {}
-local Data = game.HttpService:JSONDecode(game.HttpService:GetAsync("https://anaminus.github.io/rbx/json/api/latest.json"))
+local Data = game.HttpService:JSONDecode(game:HttpGet("https://anaminus.github.io/rbx/json/api/latest.json"))
 
 returnData.Instance = {}
 for _,data in pairs(Data) do
