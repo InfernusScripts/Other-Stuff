@@ -1,4 +1,5 @@
 local Success, Passes, Fails, Running = 0, 0, 0, 0
+local Faked = false
 
 local printidentity = getfenv().printidentity
 local getfenv = getfenv().getfenv
@@ -47,8 +48,8 @@ task.spawn(function()
 	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")")
 	print("⛔ " .. Fails .. " tests failed\n")
 
-	if rate ~= 100 then
-		warn("\n\n\t"..executor.." probably FAKING it's identity!\n\tFake identity: "..iden.."\n\n")
+	if Faked then
+		warn("\n\n\t"..executor.." is FAKING it's identity!\n\tFake identity: "..iden.."\n\n")
 	else
 		print("\n\n\t"..executor.." probably NOT FAKING it's identity!\n\tIdentity: "..iden.."\n\n")
 	end
@@ -72,10 +73,13 @@ test("Identity test", function()
 	end
 	iden = tonumber(iden)
 	if iden > 8 then
+		Faked = true
 		return false, "Identity cannot be higher than 8!\n(Identity 9 actually exist, but it is not reachable. Identity 9 has the \"Replicator\" - https://github.com/Pseudoreality/Roblox-Identities/blob/main/Identities/9%20-%20Replicator.md)"
 	elseif iden < 0 then
+		Faked = true
 		return false, "Identity cannot be lower than 0!"
 	elseif math.floor(iden) ~= iden then
+		Faked = true
 		return false, "Identity must be integer (int)"
 	else
 		return true
@@ -93,6 +97,9 @@ test("Arguments test", function()
 	printidentity(nil)
 	repeat task.wait() until ret
 	conn:Disconnect()
+	if not ret[1] then
+		Faked = true
+	end
 	return ret[1], ret[2]
 end)
 test("Envinroment check", function()
@@ -147,6 +154,7 @@ test("Fake C closure check", function()
 	end)
 	if s then
 		setfenv(printidentity, env)
+		Faked = true
 		return false, "Creates a new function and tries to hide it with newcclosure"
 	else
 		return true
@@ -161,6 +169,7 @@ test("Function name check", function()
 		return false, "debug.info is faked"
 	end
 	if debug.info(printidentity, "n") ~= "printidentity" then
+		Faked = true
 		return false, "printidentity does not have a name / incorrect name!"
 	end
 	return true
@@ -176,8 +185,10 @@ test("debug.getinfo check", function()
 		end
 		debugInfo = info(printidentity)
 		if debugInfo.name ~= "printidentity" then
+			Faked = true
 			return false, "printidentity has incorrect name (\"printidentity\" expected, got \""..tostring(debugInfo.name).."\")"
 		elseif debugInfo.what ~= "C" then
+			Faked = true
 			return false, "printidentity is not a C closure!"
 		end
 		return true
