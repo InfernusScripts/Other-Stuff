@@ -10,17 +10,18 @@ local messages = {}
 local iden
 
 local function test(name, func)
-	Running += 1
-	local s,e,message = pcall(func)
-	if not s or s and not e then
-		Fails += 1
-		messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
-	else
-		Passes += 1
-		messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
-	end
-	task.wait()
-	Running -= 1
+	task.spawn(function()
+		Running += 1
+		local s,e,message = pcall(func)
+		if not s or s and not e then
+			Fails += 1
+			messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
+		else
+			Passes += 1
+			messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
+		end
+		Running -= 1
+	end)
 end
 
 task.spawn(function()
