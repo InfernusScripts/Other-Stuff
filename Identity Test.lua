@@ -103,7 +103,14 @@ test("Set thread identity", function()
 	if not sti then
 		return true, "Global not found"
 	else
-		local randomIden = math.random(2, 7)
+		local rollIdentity; function rollIdentity()
+			local rolled = math.random(2, 8)
+			if rolled == iden then
+				rolled = rollIdentity()
+			end
+			return rolled
+		end
+		local randomIden = rollIdentity()
 		sti(randomIden)
 		local newiden
 		local conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
