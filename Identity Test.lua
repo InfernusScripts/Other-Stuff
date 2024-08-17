@@ -151,14 +151,23 @@ test("Set thread identity", function()
 		elseif math.floor(newiden) ~= newiden then
 			return false, "Identity must be integer (int)"
 		else
-			local s,e = pcall(function()
+			local s = pcall(function()
 				sti("lol")
 			end)
 			if s then
 				return false, "Set thread identity successfully changed identity to a string"
 			else
-				sti(iden or 8)
-				return true
+				sti(2)
+				local s = pcall(function()
+					local _ = game.CoreGui.RobloxGui
+				end)
+				sti(iden)
+				if s then
+					Faked = true
+					return false, "Set thread identity changed the identity message, but did not change the capabilities (Successfully accessed CoreGui with identity 2)."
+				else
+					return true
+				end
 			end
 		end
 	end
