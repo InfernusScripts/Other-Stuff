@@ -1,4 +1,4 @@
-local Success, Passes, Fails, Running = 0, 0, 0, 0
+local Passes, Fails, Running = 0, 0, 0
 local Faked = false
 
 local printidentity = getfenv().printidentity
@@ -198,3 +198,5 @@ test("debug.getinfo check", function()
 		return true, "Global not found"
 	end
 end)
+
+return [[loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Identity%20Test.lua"))()]]
