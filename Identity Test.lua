@@ -3,7 +3,7 @@ local Success, Passes, Fails, Running = 0, 0, 0, 0
 local printidentity = getfenv().printidentity
 local getfenv = getfenv().getfenv
 local getgenv = getfenv(0).getgenv or getfenv
-local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and "StudioApp"
+local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and "StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
 
 local messages = {}
 
@@ -75,6 +75,8 @@ test("Identity test", function()
 		return false, "Identity cannot be higher than 8!\n(Identity 9 actually exist, but it is not reachable. Identity 9 has the \"Replicator\" - https://github.com/Pseudoreality/Roblox-Identities/blob/main/Identities/9%20-%20Replicator.md)"
 	elseif iden < 0 then
 		return false, "Identity cannot be lower than 0!"
+	elseif math.floor(iden) ~= iden then
+		return false, "Identity must be integer (int)"
 	else
 		return true
 	end
@@ -123,6 +125,8 @@ test("Set thread identity", function()
 			return false, "Identity cannot be lower than 0!"
 		elseif newiden ~= randomIden then
 			return false, "Set thread identity didn't changed identity (Supposed to be "..randomIden..", but got "..newiden..")"
+		elseif math.floor(newiden) ~= newiden then
+			return false, "Identity must be integer (int)"
 		else
 			local s,e = pcall(function()
 				sti("lol")
