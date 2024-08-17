@@ -69,7 +69,6 @@ task.spawn(function()
 	end
 end)
 
-
 test("Identity test", function()
 	local conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
 		if message:find("Current identity is") then
@@ -95,15 +94,15 @@ test("Identity test", function()
 		SetFaked()
 		return false, "Identity must be integer (int)"
 	else
-		return true
+		return true, "Identity is real ("..iden..")"
 	end
 end)
 repeat task.wait() until iden
 test("C closure check", function()
-	local b = (getfenv(0).iscclosure and getfenv(0).iscclosure(printidentity) or not getfenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
+	local b = (getgenv().iscclosure and getgenv().iscclosure(printidentity) or not getgenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
 	if not b then
 		SetFaked("Not a C closure")
-		return false
+		return false, "Not a C closure"
 	else
 		return true
 	end
@@ -114,7 +113,7 @@ test("Arguments test", function()
 		if message == "Current identity is "..iden then
 			ret = {false, "Printed 'Current identity is "..iden.."' instead of '(null) "..iden.."'"}
 		elseif message == "(null) "..iden then
-			ret = {true}
+			ret = {true, "Printed '(null) "..iden.."' as expected"}
 		end
 	end)
 	printidentity(nil)
@@ -129,9 +128,9 @@ test("Envinroment check", function()
 	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity
 	if not b then
 		SetFaked("printidentity is a different function in some environments")
-		return false
+		return false, "printidentity must be the same in all environments"
 	else
-		return true
+		return true, "printidentity is same in all environments"
 	end
 end)
 test("Get thread identity", function()
@@ -208,7 +207,7 @@ test("Fake C closure check", function()
 		SetFaked("Hiding behind newcclosure")
 		return false, "Creates a new function and tries to hide it with newcclosure"
 	else
-		return true
+		return true, "Failed to change the environment"
 	end
 end)
 test("debug.info check", function()
@@ -242,7 +241,7 @@ test("debug.getinfo check", function()
 			SetFaked("Not a C closure")
 			return false, "printidentity is not a C closure!"
 		end
-		return true
+		return true, "debug.info & printidentity are visible to debug.getinfo"
 	else
 		return true, "Global was not found"
 	end
