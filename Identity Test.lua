@@ -155,10 +155,31 @@ end)
 test("debug.info check", function()
 	return debug.info(debug.info, "s") == "[C]"
 end)
+test("Function name check", function()
+	if debug.info(debug.info, "n") ~= "info" then
+		return false, "debug.info is faked"
+	end
+	if debug.info(printidentity, "n") ~= "printidentity" then
+		return false, "printidentity does not have a name / incorrect name!"
+	end
+	return true
+end)
 test("debug.getinfo check", function()
 	local info = getgenv().info or debug.getinfo
 	if info then
-		return info(printidentity).what == "C" and info(debug.info).what == "C"
+		local debugInfo = info(debug.info)
+		if debugInfo.name ~= "info" then
+			return false, "debug.info is faked"
+		elseif debugInfo.what ~= "C" then
+			return false, "debug.info is not a C closure!"
+		end
+		debugInfo = info(printidentity)
+		if debugInfo.name ~= "printidentity" then
+			return false, "printidentity has incorrect name (\"printidentity\" expected, got \""..tostring(debugInfo.name).."\")"
+		elseif debugInfo.what ~= "C" then
+			return false, "printidentity is not a C closure!"
+		end
+		return true
 	else
 		return true, "Global not found"
 	end
