@@ -153,7 +153,8 @@ test("Fake C closure check", function()
 	end
 end)
 test("debug.info check", function()
-	return debug.info(debug.info, "s") == "[C]" and debug.info(debug.info, "n") == "info"
+	local b = debug.info(debug.info, "s") == "[C]" and debug.info(debug.info, "n") == "info"
+	return b, not b and "debug.info is faked"
 end)
 test("Function name check", function()
 	if debug.info(debug.info, "n") ~= "info" then
