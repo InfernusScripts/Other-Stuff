@@ -4,7 +4,7 @@ local Faked = false
 local printidentity = getfenv().printidentity
 local getfenv = getfenv().getfenv
 local getgenv = getfenv(0).getgenv or getfenv
-local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and "StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
+local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and (game["Run Service"]:IsServer() and "Server" or "Client").."StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
 
 local messages = {}
 local iden
