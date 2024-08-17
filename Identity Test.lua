@@ -47,9 +47,9 @@ task.spawn(function()
 	print("⛔ " .. Fails .. " tests failed\n")
 	
 	if rate ~= 100 then
-		warn("Your executor is FAKING IDENTITY")
+		warn(executor.." is FAKING IDENTITY")
 	else
-		print("Your executor possibly not faking it's identity!")
+		print(executor.." probably not faking it's identity!")
 	end
 end)
 
