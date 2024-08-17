@@ -45,8 +45,8 @@ task.spawn(function()
 	print("\n")
 
 	print("Identity Summary")
-	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")")
-	print("⛔ " .. Fails .. " tests failed\n")
+	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")");
+	(Fails == 0 and print or warn)("⛔ " .. (Fails == 0 and "NO" or tostring(Fails)) .. " tests failed"..(Fails == 0 and "!" or "").."\n")
 
 	if Faked then
 		warn("\n\n\t"..executor.." IS FAKING it's identity!\n\tFake identity: "..iden.."\n\n")
