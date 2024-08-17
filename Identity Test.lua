@@ -6,6 +6,7 @@ local getgenv = getfenv(0).getgenv or getfenv
 local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and "StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
 
 local messages = {}
+local iden
 
 local function test(name, func)
 	Running += 1
@@ -47,16 +48,15 @@ task.spawn(function()
 	print("⛔ " .. Fails .. " tests failed\n")
 
 	if rate ~= 100 then
-		warn(executor.." is FAKING IDENTITY")
+		warn("\n"..executor.." is FAKING IDENTITY")
 	else
-		print(executor.." probably not faking it's identity!")
+		print("\n"..executor.." probably not faking it's identity!\nIdentity: "..iden)
 	end
 end)
 
 test("C closure check", function()
 	return (getfenv(0).iscclosure and getfenv(0).iscclosure(printidentity) or not getfenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
 end)
-local iden
 test("Identity test", function()
 	local conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
 		if message:find("Current identity is") then
@@ -103,14 +103,7 @@ test("Set thread identity", function()
 	if not sti then
 		return true, "Global not found"
 	else
-		local rollIdentity; function rollIdentity()
-			local rolled = math.random(2, 8)
-			if rolled == iden then
-				rolled = rollIdentity()
-			end
-			return rolled
-		end
-		local randomIden = rollIdentity()
+		local randomIden = math.random(2, 7)
 		sti(randomIden)
 		local newiden
 		local conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
