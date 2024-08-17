@@ -48,9 +48,9 @@ task.spawn(function()
 	print("⛔ " .. Fails .. " tests failed\n")
 
 	if rate ~= 100 then
-		warn("\n\n\t"..executor.." is FAKING IDENTITY\n\tFake identity: "..iden.."\n\n")
+		warn("\n\n\t"..executor.." probably FAKING it's identity!\n\tFake identity: "..iden.."\n\n")
 	else
-		print("\n\n\t"..executor.." probably not faking it's identity!\n\tIdentity: "..iden.."\n\n")
+		print("\n\n\t"..executor.." probably NOT FAKING it's identity!\n\tIdentity: "..iden.."\n\n")
 	end
 end)
 
@@ -153,7 +153,7 @@ test("Fake C closure check", function()
 	end
 end)
 test("debug.info check", function()
-	return debug.info(debug.info, "s") == "[C]"
+	return debug.info(debug.info, "s") == "[C]" and debug.info(debug.info, "n") == "info"
 end)
 test("Function name check", function()
 	if debug.info(debug.info, "n") ~= "info" then
