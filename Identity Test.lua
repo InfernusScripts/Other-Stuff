@@ -94,7 +94,7 @@ test("Identity test", function()
 		SetFaked()
 		return false, "Identity must be integer (int)"
 	else
-		return true, "Identity is real ("..iden..")"
+		return true, iden.." - is valid identity!"
 	end
 end)
 repeat task.wait() until iden
@@ -207,7 +207,7 @@ test("Fake C closure check", function()
 		SetFaked("Hiding behind newcclosure")
 		return false, "Creates a new function and tries to hide it with newcclosure"
 	else
-		return true, "Failed to change the environment"
+		return true, "Failed to change the environment as expected"
 	end
 end)
 test("debug.info check", function()
