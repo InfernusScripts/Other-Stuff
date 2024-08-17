@@ -71,6 +71,7 @@ test("Identity test", function()
 	conn:Disconnect()
 
 	if not tonumber(iden) then
+		iden = 7
 		return false, "Identity must be a number!"
 	end
 	iden = tonumber(iden)
@@ -106,6 +107,19 @@ test("Arguments test", function()
 end)
 test("Envinroment check", function()
 	return getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity
+end)
+test("Get thread identity", function()
+	local gti = getgenv().getthreadidentity or getgenv().getthreadcontext or getgenv().getidentity
+	if gti then
+		local ti = gti()
+		if ti ~= iden then
+			return false, "Get thread identity returned incorrect identity ("..iden.." expected, got "..ti..")"
+		else
+			return true
+		end
+	else
+		return true, "Global not found"
+	end
 end)
 test("Set thread identity", function()
 	local sti = getgenv().setthreadidentity or getgenv().setthreadcontext or getgenv().setidentity
