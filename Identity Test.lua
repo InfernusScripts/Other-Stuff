@@ -58,9 +58,7 @@ task.spawn(function()
 	end
 end)
 
-test("C closure check", function()
-	return (getfenv(0).iscclosure and getfenv(0).iscclosure(printidentity) or not getfenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
-end)
+
 test("Identity test", function()
 	local conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
 		if message:find("Current identity is") then
@@ -88,6 +86,10 @@ test("Identity test", function()
 	else
 		return true
 	end
+end)
+repeat task.wait() until iden
+test("C closure check", function()
+	return (getfenv(0).iscclosure and getfenv(0).iscclosure(printidentity) or not getfenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
 end)
 test("Arguments test", function()
 	local ret
@@ -167,7 +169,7 @@ test("Set thread identity", function()
 					Faked = true
 					return false, "Set thread identity changed the identity message, but did not change the capabilities (Successfully accessed CoreGui with identity 2)."
 				else
-					return true
+					return true, "Changes identity & capabilities"
 				end
 			end
 		end
@@ -222,5 +224,3 @@ test("debug.getinfo check", function()
 		return true, "Global not found"
 	end
 end)
-
-return [[loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/main/Identity%20Test.lua"))()]]
