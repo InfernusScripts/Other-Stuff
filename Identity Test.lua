@@ -23,7 +23,7 @@ end
 
 task.spawn(function()
 	repeat task.wait() until Running == 0
-	
+
 	print("\n")
 
 	print(executor.."'s Thread Identity Check")
@@ -45,7 +45,7 @@ task.spawn(function()
 	print("Identity Summary")
 	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")")
 	print("⛔ " .. Fails .. " tests failed\n")
-	
+
 	if rate ~= 100 then
 		warn(executor.." is FAKING IDENTITY")
 	else
@@ -66,7 +66,7 @@ test("Identity test", function()
 	printidentity()
 	repeat task.wait() until iden
 	conn:Disconnect()
-	
+
 	if not tonumber(iden) then
 		return false, "Identity must be a number!"
 	end
@@ -121,7 +121,7 @@ test("Set thread identity", function()
 			return false, "Identity cannot be higher than 8!\n(Identity 9 actually exist, but it is not reachable. Identity 9 has the \"Replicator\" - https://github.com/Pseudoreality/Roblox-Identities/blob/main/Identities/9%20-%20Replicator.md)"
 		elseif newiden < 0 then
 			return false, "Identity cannot be lower than 0!"
-		elseif newiden ~= 2 then
+		elseif newiden ~= randomIden then
 			return false, "Set thread identity didn't changed identity (Supposed to be "..randomIden..", but got "..newiden..")"
 		else
 			local s,e = pcall(function()
@@ -154,7 +154,7 @@ end)
 test("debug.getinfo check", function()
 	local info = getgenv().info or debug.getinfo
 	if info then
-		return info(printidentity).source == "[C]" and info(debug.info).source == "[C]"
+		return info(printidentity).what == "C" and info(debug.info).what == "C"
 	else
 		return true, "Global not found"
 	end
