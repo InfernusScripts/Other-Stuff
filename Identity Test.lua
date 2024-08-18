@@ -230,14 +230,14 @@ test("debug.getinfo check", function()
 		local debugInfo = info(debug.info)
 		if debugInfo.name ~= "info" then
 			return false, "debug.info is faked"
-		elseif debugInfo.what ~= "C" then
+		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" then
 			return false, "debug.info is not a C closure!"
 		end
 		debugInfo = info(printidentity)
 		if debugInfo.name ~= "printidentity" then
 			SetFaked("debug.getinfo did not return a name of printidentity")
 			return false, "printidentity has incorrect name (\"printidentity\" expected, got \""..tostring(debugInfo.name).."\")"
-		elseif debugInfo.what ~= "C" then
+		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" then
 			SetFaked("Not a C closure")
 			return false, "printidentity is not a C closure!"
 		end
