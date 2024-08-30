@@ -1,9 +1,9 @@
 local Passes, Fails, Running = 0, 0, 0
 local Faked = false
 
-local printidentity = getfenv().printidentity
+local printidentity = getfenv().getrenv and getfenv().getrenv() or getfenv().printidentity
 local getfenv = getfenv().getfenv
-local getgenv = getfenv(0).getgenv or getfenv
+local getgenv = getfenv().getgenv or getfenv
 local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and (game["Run Service"]:IsServer() and "Server" or "Client").."StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
 
 local messages = {}
@@ -16,6 +16,9 @@ local function test(name, func)
 	Running += 1
 	local s,e,message = pcall(func)
 	if not s or s and not e then
+		if not s then
+			message = e	
+		end
 		Fails += 1
 		messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
 	else
@@ -113,6 +116,15 @@ test("Arguments test", function()
 	end
 	return ret[1], ret[2]
 end)
+test("Envinroment check", function()
+	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity and (getfenv( ).getrenv and getfenv( ).getrenv( ).printidentity == getfenv( ).printidentity or not getfenv().getrenv)
+	if not b then
+		SetFaked("printidentity is a different function in some environments")
+		return false, "printidentity must be the same in all environments"
+	else
+		return true, "printidentity is same in all environments"
+	end
+end)
 test("C closure check", function()
 	local b = (getgenv().iscclosure and getgenv().iscclosure(printidentity) or not getgenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
 	if not b then
@@ -120,15 +132,6 @@ test("C closure check", function()
 		return false, "Not a C closure"
 	else
 		return true
-	end
-end)
-test("Envinroment check", function()
-	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity
-	if not b then
-		SetFaked("printidentity is a different function in some environments")
-		return false, "printidentity must be the same in all environments"
-	else
-		return true, "printidentity is same in all environments"
 	end
 end)
 test("Get thread identity", function()
