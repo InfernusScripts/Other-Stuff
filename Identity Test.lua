@@ -13,18 +13,17 @@ local sti = getgenv().setthreadidentity or getgenv().setthreadcontext or getgenv
 local gti = getgenv().getthreadidentity or getgenv().getthreadcontext or getgenv().getidentity
 
 local function test(name, func)
-	task.spawn(function()
-		Running += 1
-		local s,e,message = pcall(func)
-		if not s or s and not e then
-			Fails += 1
-			messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
-		else
-			Passes += 1
-			messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
-		end
-		Running -= 1
-	end)
+	Running += 1
+	local s,e,message = pcall(func)
+	if not s or s and not e then
+		Fails += 1
+		messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
+	else
+		Passes += 1
+		messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
+	end
+	Running -= 1
+	task.wait(0)
 end
 
 local function SetFaked(str)
@@ -97,16 +96,6 @@ test("Identity test", function()
 		return true, iden.." - is valid identity!"
 	end
 end)
-repeat task.wait() until iden
-test("C closure check", function()
-	local b = (getgenv().iscclosure and getgenv().iscclosure(printidentity) or not getgenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
-	if not b then
-		SetFaked("Not a C closure")
-		return false, "Not a C closure"
-	else
-		return true
-	end
-end)
 test("Arguments test", function()
 	local ret
 	local conn; conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
@@ -123,6 +112,15 @@ test("Arguments test", function()
 		SetFaked("Detected when \"nil\" argument was passed")
 	end
 	return ret[1], ret[2]
+end)
+test("C closure check", function()
+	local b = (getgenv().iscclosure and getgenv().iscclosure(printidentity) or not getgenv().iscclosure) and debug.info(printidentity, "s") == "[C]"
+	if not b then
+		SetFaked("Not a C closure")
+		return false, "Not a C closure"
+	else
+		return true
+	end
 end)
 test("Envinroment check", function()
 	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity
