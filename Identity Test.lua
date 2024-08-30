@@ -22,8 +22,8 @@ local function test(name, func)
 		Passes += 1
 		messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
 	end
-	Running -= 1
 	task.wait(0)
+	Running -= 1
 end
 
 local function SetFaked(str)
