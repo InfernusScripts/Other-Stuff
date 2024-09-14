@@ -100,19 +100,75 @@ test("Identity test", function()
 	end
 end)
 test("Arguments test", function()
+	local args = {nil,false,true,{},{},{},type,typeof,print,printidentity,Vector3,workspace,game}
+	local arg = args[math.random(1, #args)]
 	local ret
 	local conn; conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
 		if message == "Current identity is "..iden then
-			ret = {false, "Printed 'Current identity is "..iden.."' instead of '(null) "..iden.."'"}
+			ret = {false, "Printed 'Current identity is "..iden.."' instead of '(null) "..iden.."' (this is really stupid :|)"}
 		elseif message == "(null) "..iden then
 			ret = {true, "Printed '(null) "..iden.."' as expected"}
+		elseif message == tostring(arg).." "..iden then
+			ret = {false, "Printed '"..tostring(arg).." "..iden.."' instead of '(null)' "..iden.."'"}
 		end
 	end)
-	printidentity(nil)
+	printidentity(arg)
 	repeat task.wait() until ret
 	conn:Disconnect()
 	if not ret[1] then
-		SetFaked("Detected when \"nil\" argument was passed")
+		SetFaked("Detected when random argument was passed")
+	end
+	return ret[1], ret[2]
+end)
+test("Arguments test 2", function()
+	local args = {nil,false,true,{},{},{},type,typeof,print,printidentity,Vector3,workspace,game}
+	local rng = math.random(2, 10)
+	local randomArgs = {}
+	for i=1, rng do
+		randomArgs[#randomArgs+1] = args[math.random(1, #args)]
+	end
+	local ret
+	local arg = randomArgs[#randomArgs]
+	local conn; conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
+		if message == "Current identity is "..iden then
+			ret = {false, "Printed '"..message.."' instead of '(null) "..iden.."' (this is really stupid :|)"}
+		elseif message == "(null) "..iden then
+			ret = {true, "Printed '"..message.."' as expected"}
+		elseif message == tostring(arg).." "..iden then
+			ret = {false, "Printed '"..message.."' instead of '(null)' "..iden.."'"}
+		end
+	end)
+	printidentity(unpack(randomArgs))
+	repeat task.wait() until ret
+	conn:Disconnect()
+	if not ret[1] then
+		SetFaked("Detected when random argument was passed")
+	end
+	return ret[1], ret[2]
+end)
+test("Arguments test 3", function()
+	local strings = {"Yo", "Wsg", "XD", "Current identity is", "Current identity prob not", "Identity:", "lol", 1, 2, 3, math.huge, 0, 0.1}
+	local random = math.random(2, 10)
+	local str = {}
+	for i=1, random do
+		str[#str+1] = strings[math.random(1, #strings)]
+	end
+	local arg = str[#str]
+	local ret
+	local conn; conn = game:GetService("LogService").MessageOut:Connect(function(message, messageType)
+		if message == str[1].." "..iden then
+			ret = {false, "Printed '"..message.."' instead of '"..arg.." "..iden.."'"}
+		elseif message == "Current identity is "..iden then
+			ret = {false, "Printed '"..message.."' instead of '"..arg.." "..iden.."' (this is really stupid :|)"}
+		elseif message == arg.." "..iden then
+			ret = {true, "Printed '"..message.."' as expected!"}
+		end
+	end)
+	printidentity(unpack(str))
+	repeat task.wait() until ret
+	conn:Disconnect()
+	if not ret[1] then
+		SetFaked("Detected when random argument was passed")
 	end
 	return ret[1], ret[2]
 end)
