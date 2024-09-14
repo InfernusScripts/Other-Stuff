@@ -12,6 +12,9 @@ local iden
 local sti = getgenv().setthreadidentity or getgenv().setthreadcontext or getgenv().setidentity
 local gti = getgenv().getthreadidentity or getgenv().getthreadcontext or getgenv().getidentity
 
+local checkMark = string.char(226)..string.char(156)..string.char(133)
+local minusMark = string.char(226)..string.char(155)..string.char(148)
+
 local function test(name, func)
 	Running += 1
 	local s,e,message = pcall(func)
@@ -20,10 +23,10 @@ local function test(name, func)
 			message = e	
 		end
 		Fails += 1
-		messages[#messages+1] = {false, ("⛔ "..name.." - failed"..(message and ": "..message or ""))}
+		messages[#messages+1] = {false, (minusMark.." "..name.." - failed"..(message and ": "..message or ""))}
 	else
 		Passes += 1
-		messages[#messages+1] = {true, ("✅ "..name.. " - passed"..(message and ": "..message or ""))}
+		messages[#messages+1] = {true, (checkMark.." "..name.. " - passed"..(message and ": "..message or ""))}
 	end
 	task.wait(0)
 	Running -= 1
@@ -43,7 +46,7 @@ task.spawn(function()
 	print("\n")
 
 	print(executor.."'s Thread Identity Check")
-	print("✅ - Pass, ⛔ - Fail\n")
+	print(checkMark.." - Pass, "..minusMark.." - Fail\n")
 
 	local rate = math.round(Passes / (Passes + Fails) * 100)
 	local outOf = Passes .. " out of " .. (Passes + Fails)
@@ -59,8 +62,8 @@ task.spawn(function()
 	print("\n")
 
 	print("Identity Summary")
-	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")");
-	(Fails == 0 and print or warn)("⛔ " .. (Fails == 0 and "NO" or tostring(Fails)) .. " tests failed"..(Fails == 0 and "!" or "").."\n")
+	print(checkMark.." Tested with a " .. rate .. "% success rate (" .. outOf .. ")");
+	(Fails == 0 and print or warn)(minusMark.." " .. (Fails == 0 and "NO" or tostring(Fails)) .. " tests failed"..(Fails == 0 and "!" or "").."\n")
 
 	if Faked then
 		warn("\n\n\t"..executor.." IS FAKING it's identity"..(typeof(Faked) == "string" and ": "..Faked.."." or "!").."\n\tFake identity: "..iden.."\n\n")
