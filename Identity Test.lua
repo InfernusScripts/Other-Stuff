@@ -192,7 +192,15 @@ test("Set thread identity", function()
 					SetFaked("Changes message but not capabilites")
 					return false, "Set thread identity changed the identity message, but did not change the capabilities (Successfully accessed CoreGui with identity 2)."
 				else
-					return true, "Changes identity & capabilities"
+					local s,e = pcall(function()
+						sti(123)
+					end)
+					if not s then
+						return true, "Changes identity & capabilities / Requires valid identity number (from 0 to 8)"
+					else
+						sti(iden)
+						return true, "Changes identity & capabilities"
+					end
 				end
 			end
 		end
