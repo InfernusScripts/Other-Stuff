@@ -279,33 +279,37 @@ test("Fake C closure check", function()
 	end
 end)
 test("debug.info check", function()
-	local b = debug.info(debug.info, "s") == "[C]" and debug.info(debug.info, "n") == "info"
-	return b, not b and "debug.info is faked" or "debug.info is real"
+	local b = debug.info(debug.info, "s") == "[C]" and debug.info(debug.info, "n") == "info" and (getgenv().iscclosure and getgenv().iscclosure(debug.info) or not getgenv().iscclosure)
+	return b, not b and "debug.info is faked" or "debug.info is a C closure and it's name is \"info!\""
 end)
 test("Function name check", function()
 	if debug.info(debug.info, "n") ~= "info" then
 		return false, "debug.info is faked"
 	end
 	if debug.info(printidentity, "n") ~= "printidentity" then
-		SetFaked("debug.info did not return a name of printidentity")
-		return false, "printidentity does not have a name / incorrect name!"
+		SetFaked("debug.info did not return a correct name of printidentity")
+		return false, "printidentity does not have a name / has incorrect name!"
+	end
+	if debug.info(print, "n") ~= "print" then
+		SetFaked("debug.info did not return a correct name of print")
+		return false, "print does not have a name / has incorrect name!"
 	end
 	return true
 end)
 test("debug.getinfo check", function()
-	local info = getgenv().info or debug.getinfo
+	local info = debug.getinfo or getgenv().info
 	if info then
 		local debugInfo = info(debug.info)
 		if debugInfo.name ~= "info" then
 			return false, "debug.info is faked"
-		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" then
+		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" and debugInfo.source ~= "C" and debugInfo.source ~= "@[C]" then
 			return false, "debug.info is not a C closure!"
 		end
 		debugInfo = info(printidentity)
 		if debugInfo.name ~= "printidentity" then
 			SetFaked("debug.getinfo did not return a name of printidentity")
 			return false, "printidentity has incorrect name (\"printidentity\" expected, got \""..tostring(debugInfo.name).."\")"
-		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" then
+		elseif debugInfo.source ~= "[C]" and debugInfo.source ~= "=[C]" and debugInfo.source ~= "C" and debugInfo.source ~= "@[C]" then
 			SetFaked("Not a C closure")
 			return false, "printidentity is not a C closure!"
 		end
