@@ -1,7 +1,7 @@
 local Passes, Fails, Running = 0, 0, 0
 local Faked = false
 
-local printidentity = getfenv().getrenv and getfenv().getrenv() or getfenv().printidentity
+local printidentity = getfenv().getrenv and getfenv().getrenv().printidentity or getfenv().printidentity
 local getfenv = getfenv().getfenv
 local getgenv = getfenv().getgenv or getfenv
 local executor = getgenv().identifyexecutor and (getgenv().identifyexecutor()) or game["Run Service"]:IsStudio() and (game["Run Service"]:IsServer() and "Server" or "Client").."StudioApp" or game["Run Service"]:IsServer() and "Server" or "Client"
@@ -117,7 +117,7 @@ test("Arguments test", function()
 	return ret[1], ret[2]
 end)
 test("Envinroment check", function()
-	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity and (getfenv( ).getrenv and getfenv( ).getrenv( ).printidentity == getfenv( ).printidentity or not getfenv().getrenv)
+	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity and (getfenv( ).getrenv and getfenv( ).getrenv( ).printidentity == getfenv( ).printidentity and getfenv(0).printidentity == getfenv( ).getrenv( ).printidentity or not getfenv().getrenv)
 	if not b then
 		SetFaked("printidentity is a different function in some environments")
 		return false, "printidentity must be the same in all environments"
