@@ -15,6 +15,21 @@ local gti = getgenv().getthreadidentity or getgenv().getthreadcontext or getgenv
 local checkMark = string.char(226)..string.char(156)..string.char(133)
 local minusMark = string.char(226)..string.char(155)..string.char(148)
 
+local senv
+if getgenv().getsenv then
+	for i,v in game:GetDescendants() do
+		if v and v:IsA("LocalScript") then
+			senv = getgenv().getsenv
+			if senv and senv.printidentity then
+				break
+			end
+		end
+	end
+end
+if not senv or not senv.printidentity then
+	senv = {printidentity = printidentity}
+end
+
 local function test(name, func)
 	Running += 1
 	local s,e,message = pcall(func)
@@ -176,7 +191,7 @@ test("Arguments test 3", function()
 	return ret[1], ret[2]
 end)
 test("Envinroment check", function()
-	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity and (getfenv( ).getrenv and getfenv( ).getrenv( ).printidentity == getfenv( ).printidentity and getfenv(0).printidentity == getfenv( ).getrenv( ).printidentity or not getfenv().getrenv)
+	local b = getfenv(0).printidentity == getfenv(1).printidentity and getfenv(1).printidentity == getgenv( ).printidentity and printidentity == getfenv(1).printidentity and getfenv( ).printidentity == getfenv(1).printidentity and (getfenv( ).getrenv and getfenv( ).getrenv( ).printidentity == getfenv( ).printidentity and getfenv(0).printidentity == getfenv( ).getrenv( ).printidentity and senv.printdentity == getfenv( ).printidentity and senv.printidentity == getgenv( ).printidentity and getgenv( ).printidentity == getfenv( ).getrenv( ).printidentity or not getfenv().getrenv) and senv.printidentity == getfenv( ).printidentity and senv.printidentity == printidentity and getgenv( ).printidentity == printidentity
 	if not b then
 		SetFaked("printidentity is a different function in some environments")
 		return false, "printidentity must be the same in all environments"
