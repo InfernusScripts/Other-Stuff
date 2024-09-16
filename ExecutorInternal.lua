@@ -2298,7 +2298,7 @@ moduleScripts[Instance2] = function()
         end
     end
     game.UserInputService.InputBegan:Connect(function(input)
-        if closed or game.UserInputService:GetFocusedTextBox() or input.KeyCode ~= Enum.KeyCode.KeypadPeriod then return end
+        if closed or game.UserInputService:GetFocusedTextBox() or input.KeyCode ~= Enum.KeyCode.Delete then return end
         if minimized then
             minimized = false
             moveWindow(true)
