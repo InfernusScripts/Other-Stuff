@@ -1,9 +1,13 @@
+local function onIterate(c,v) -- doing a separate function to use less memory
+	c[#c+1] = v
+	GetDsc(v, c)
+end
 function GetDsc(obj, ct)
-  local c = ct or {}
-  for i,v in pairs(obj:GetChildren()) do -- using pairs cuz some stoopid luavms dont support straight iterations
-    c[#c+1] = v
-    pcall(GetDsc, v, c) -- pcall cuz yk, roblox broke getdescendants
-  end
+	local c = ct or {}
+	for i,v in pairs(obj:GetChildren()) do -- using pairs cuz some stoopid luavms dont support straight iterations
+		pcall(onIterate,c,v) -- pcall, cuz yk, roblox broke getdescendants
+	end
+	return c
 end
 
 return function(obj)
