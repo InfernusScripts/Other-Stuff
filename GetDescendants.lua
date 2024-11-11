@@ -11,6 +11,6 @@ function GetDsc(obj, ct)
 end
 
 return function(obj)
-	local s,e = pcall(GetDsc, obj or game) -- same as on line 5
+	local s,e = pcall(GetDsc, obj or game) -- same as on line 8
 	return s and e or {}
 end
