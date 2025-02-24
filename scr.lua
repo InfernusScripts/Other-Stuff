@@ -12,24 +12,10 @@ Theme = { -- theme is not important too
 
 local page = window:AddPage({Title = "Player"})
 
-local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
-	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
-end, Default = 16, Min = 0, Max = 100, Step = 1})
-
-local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
-	game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
-end, Default = 50, Min = 0, Max = 100, Step = 1})
-
-local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
-	workspace.Gravity = number
-end, Default = 0, Min = 0, Max = 196, Step = 1})
-
-local page1 = window:AddPage({Title = "Teleport"})
-
-page:AddToggle({Caption = "Toggle", Callback = function(bool)
+page:AddToggle({Caption = "Walk Speed", Callback = function(bool)
 	if bool then
 		while task.wait() do
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 60
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
 		end
 	else
 		while task.wait() do
@@ -37,6 +23,30 @@ page:AddToggle({Caption = "Toggle", Callback = function(bool)
 		end
 	end
 end, Default = false})
+
+page:AddToggle({Caption = "Jump Power", Callback = function(bool)
+	if bool then
+		while task.wait() do
+			game.Players.LocalPlayer.Character.Humanoid.JumpPower = 100
+		end
+	else
+		while task.wait() do
+			game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+		end
+	end
+end, Default = false})
+
+local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
+	while task.wait() do
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+	end
+end, Default = 16, Min = 0, Max = 100, Step = 1})
+
+local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
+	workspace.Gravity = number
+end, Default = 16, Min = 0, Max = 196, Step = 1})
+
+local page1 = window:AddPage({Title = "Teleport"})
 
 local button = page1:AddButton({Caption = "jail", Callback = function()
 	local tws = game:GetService("TweenService")
