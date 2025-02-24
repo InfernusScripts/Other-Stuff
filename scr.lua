@@ -12,18 +12,6 @@ Theme = { -- theme is not important too
 
 local page = window:AddPage({Title = "Player"})
 
-local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
-	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
-end, Default = 16, Min = 0, Max = 100, Step = 1})
-
-local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
-	game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
-end, Default = 50, Min = 0, Max = 100, Step = 1})
-
-local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
-	workspace.Gravity = number
-end, Default = 0, Min = 0, Max = 196, Step = 1})
-
 local page1 = window:AddPage({Title = "Teleport"})
 
 page:AddToggle({Caption = "Toggle", Callback = function(bool)
