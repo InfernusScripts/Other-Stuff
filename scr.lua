@@ -1,425 +1,119 @@
--- [[ GENERATED WITH InfernoHub/Scriptify STUDIO PLUGIN ]] --
--- Scriptify Version: 1.0
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
---
+local window = lib:MakeWindow({Title = "Fire~Lib: Example", CloseCallback = function()
+	print("Closed!")
+end, Size = UDim2.fromScale(1, 0.75), -- size is not important
+Theme = { -- theme is not important too
+	Main = Color3.new(0, 1, 0.117647), -- pink
+	Text = Color3.new(0, 0, 0), -- soft pink
+	Back = Color3.fromRGB(109, 109, 109) -- dark pink
+}
+})
 
--- Create objects
-local parent = game:GetService("CoreGui");
-local objects = {
-    ["Instance0"] = Instance.new("ScreenGui"); -- Mad_City
-    ["Instance1"] = Instance.new("Frame"); -- Frame
-    ["Instance2"] = Instance.new("UICorner"); -- UICorner
-    ["Instance3"] = Instance.new("TextButton"); -- Police
-    ["Instance4"] = Instance.new("UICorner"); -- UICorner
-    ["Instance5"] = Instance.new("LocalScript"); -- LocalScript
-    ["Instance6"] = Instance.new("TextButton"); -- criminal
-    ["Instance7"] = Instance.new("UICorner"); -- UICorner
-    ["Instance8"] = Instance.new("LocalScript"); -- LocalScript
-    ["Instance9"] = Instance.new("TextButton"); -- Pink Police
-    ["Instance10"] = Instance.new("UICorner"); -- UICorner
-    ["Instance11"] = Instance.new("LocalScript"); -- LocalScript
-    ["Instance12"] = Instance.new("TextButton"); -- Swat
-    ["Instance13"] = Instance.new("UICorner"); -- UICorner
-    ["Instance14"] = Instance.new("LocalScript"); -- LocalScript
-    ["Instance15"] = Instance.new("TextButton"); -- Close
-    ["Instance16"] = Instance.new("LocalScript"); -- LocalScript
-    ["Instance17"] = Instance.new("LocalScript"); -- LocalScript
-};
+local page = window:AddPage({Title = "Player"})
 
-do -- Set properties
-    objects["Instance0"]["Enabled"] = true;
-    objects["Instance0"]["ScreenInsets"] = Enum.ScreenInsets.CoreUISafeInsets;
-    objects["Instance0"]["SafeAreaCompatibility"] = Enum.SafeAreaCompatibility.FullscreenExtension;
-    objects["Instance0"]["ClipToDeviceSafeArea"] = true;
-    objects["Instance0"]["Parent"] = parent;
-    objects["Instance0"]["IgnoreGuiInset"] = false;
-    objects["Instance0"]["Name"] = "Mad_City";
-    objects["Instance0"]["DisplayOrder"] = 0;
+local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+end, Default = 16, Min = 0, Max = 100, Step = 1})
 
-    objects["Instance1"]["LayoutOrder"] = 0;
-    objects["Instance1"]["Active"] = false;
-    objects["Instance1"]["Parent"] = objects["Instance0"];
-    objects["Instance1"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance1"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance1"]["ZIndex"] = 1;
-    objects["Instance1"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance1"]["Size"] = UDim2.new(0, 441, 0, 271);
-    objects["Instance1"]["Draggable"] = false;
-    objects["Instance1"]["Style"] = Enum.FrameStyle.Custom;
-    objects["Instance1"]["ClipsDescendants"] = false;
-    objects["Instance1"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance1"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance1"]["BackgroundTransparency"] = 0;
-    objects["Instance1"]["BorderSizePixel"] = 0;
-    objects["Instance1"]["Rotation"] = 0;
-    objects["Instance1"]["Transparency"] = 0;
-    objects["Instance1"]["Name"] = "Frame";
-    objects["Instance1"]["SelectionOrder"] = 0;
-    objects["Instance1"]["Visible"] = true;
-    objects["Instance1"]["Selectable"] = false;
-    objects["Instance1"]["Position"] = UDim2.new(0.3311546742916107, 0, 0.2642180025577545, 0);
-    objects["Instance1"]["BackgroundColor3"] = Color3.new(0.294118, 0.294118, 0.294118);
+local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
+	game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
+end, Default = 50, Min = 0, Max = 100, Step = 1})
 
-    objects["Instance2"]["Parent"] = objects["Instance1"];
-    objects["Instance2"]["Name"] = "UICorner";
-    objects["Instance2"]["CornerRadius"] = UDim.new(0, 8);
+local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
+	workspace.Gravity = number
+end, Default = 0, Min = 0, Max = 196, Step = 1})
 
-    objects["Instance3"]["Visible"] = true;
-    objects["Instance3"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance3"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance3"]["Active"] = true;
-    objects["Instance3"]["TextStrokeTransparency"] = 1;
-    objects["Instance3"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance3"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance3"]["ZIndex"] = 1;
-    objects["Instance3"]["BorderSizePixel"] = 0;
-    objects["Instance3"]["Draggable"] = false;
-    objects["Instance3"]["RichText"] = false;
-    objects["Instance3"]["Modal"] = false;
-    objects["Instance3"]["AutoButtonColor"] = true;
-    objects["Instance3"]["Transparency"] = 0;
-    objects["Instance3"]["SelectionOrder"] = 0;
-    objects["Instance3"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance3"]["TextScaled"] = true;
-    objects["Instance3"]["TextWrap"] = true;
-    objects["Instance3"]["FontFace"] = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance3"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance3"]["Parent"] = objects["Instance1"];
-    objects["Instance3"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance3"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance3"]["Position"] = UDim2.new(0.05215419456362724, 0, 0.10701107233762741, 0);
-    objects["Instance3"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance3"]["Selected"] = false;
-    objects["Instance3"]["TextSize"] = 14;
-    objects["Instance3"]["Size"] = UDim2.new(0, 109, 0, 36);
-    objects["Instance3"]["BackgroundTransparency"] = 0;
-    objects["Instance3"]["TextWrapped"] = true;
-    objects["Instance3"]["ClipsDescendants"] = false;
-    objects["Instance3"]["TextColor3"] = Color3.new(0, 0, 0);
-    objects["Instance3"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance3"]["Text"] = "Police";
-    objects["Instance3"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance3"]["LayoutOrder"] = 0;
-    objects["Instance3"]["Rotation"] = 0;
-    objects["Instance3"]["LineHeight"] = 1;
-    objects["Instance3"]["Name"] = "Police";
-    objects["Instance3"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance3"]["Selectable"] = true;
-    objects["Instance3"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance3"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance3"]["TextTransparency"] = 0;
+local page1 = window:AddPage({Title = "Teleport"})
 
-    objects["Instance4"]["Parent"] = objects["Instance3"];
-    objects["Instance4"]["Name"] = "UICorner";
-    objects["Instance4"]["CornerRadius"] = UDim.new(0, 8);
+local button = page1:AddButton({Caption = "jail", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    objects["Instance5"]["Parent"] = objects["Instance3"];
-    objects["Instance5"]["Name"] = "LocalScript";
-    objects["Instance5"]["Enabled"] = true;
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-    objects["Instance6"]["Visible"] = true;
-    objects["Instance6"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance6"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance6"]["Active"] = true;
-    objects["Instance6"]["TextStrokeTransparency"] = 1;
-    objects["Instance6"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance6"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance6"]["ZIndex"] = 1;
-    objects["Instance6"]["BorderSizePixel"] = 0;
-    objects["Instance6"]["Draggable"] = false;
-    objects["Instance6"]["RichText"] = false;
-    objects["Instance6"]["Modal"] = false;
-    objects["Instance6"]["AutoButtonColor"] = true;
-    objects["Instance6"]["Transparency"] = 0;
-    objects["Instance6"]["SelectionOrder"] = 0;
-    objects["Instance6"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance6"]["TextScaled"] = true;
-    objects["Instance6"]["TextWrap"] = true;
-    objects["Instance6"]["FontFace"] = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance6"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance6"]["Parent"] = objects["Instance1"];
-    objects["Instance6"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance6"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance6"]["Position"] = UDim2.new(0.05215419456362724, 0, 0.3284132778644562, 0);
-    objects["Instance6"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance6"]["Selected"] = false;
-    objects["Instance6"]["TextSize"] = 14;
-    objects["Instance6"]["Size"] = UDim2.new(0, 109, 0, 36);
-    objects["Instance6"]["BackgroundTransparency"] = 0;
-    objects["Instance6"]["TextWrapped"] = true;
-    objects["Instance6"]["ClipsDescendants"] = false;
-    objects["Instance6"]["TextColor3"] = Color3.new(0, 0, 0);
-    objects["Instance6"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance6"]["Text"] = "Criminal";
-    objects["Instance6"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance6"]["LayoutOrder"] = 0;
-    objects["Instance6"]["Rotation"] = 0;
-    objects["Instance6"]["LineHeight"] = 1;
-    objects["Instance6"]["Name"] = "criminal";
-    objects["Instance6"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance6"]["Selectable"] = true;
-    objects["Instance6"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance6"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance6"]["TextTransparency"] = 0;
+	local twt = {CFrame = CFrame.new(-891.315857, 53.8770714, -2746.86304, -0.999704361, 0.00340574235, 0.0240733363, -0.00257628458, 0.969727278, -0.244176939, -0.0241761748, -0.244166762, -0.969431818)}
 
-    objects["Instance7"]["Parent"] = objects["Instance6"];
-    objects["Instance7"]["Name"] = "UICorner";
-    objects["Instance7"]["CornerRadius"] = UDim.new(0, 8);
+	local tw = tws:Create(Player, twi, twt)
 
-    objects["Instance8"]["Parent"] = objects["Instance6"];
-    objects["Instance8"]["Name"] = "LocalScript";
-    objects["Instance8"]["Enabled"] = true;
+	tw:Play()
+end})
 
-    objects["Instance9"]["Visible"] = true;
-    objects["Instance9"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance9"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance9"]["Active"] = true;
-    objects["Instance9"]["TextStrokeTransparency"] = 1;
-    objects["Instance9"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance9"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance9"]["ZIndex"] = 1;
-    objects["Instance9"]["BorderSizePixel"] = 0;
-    objects["Instance9"]["Draggable"] = false;
-    objects["Instance9"]["RichText"] = false;
-    objects["Instance9"]["Modal"] = false;
-    objects["Instance9"]["AutoButtonColor"] = true;
-    objects["Instance9"]["Transparency"] = 0;
-    objects["Instance9"]["SelectionOrder"] = 0;
-    objects["Instance9"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance9"]["TextScaled"] = true;
-    objects["Instance9"]["TextWrap"] = true;
-    objects["Instance9"]["FontFace"] = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance9"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance9"]["Parent"] = objects["Instance1"];
-    objects["Instance9"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance9"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance9"]["Position"] = UDim2.new(0.32879817485809326, 0, 0.10701107233762741, 0);
-    objects["Instance9"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance9"]["Selected"] = false;
-    objects["Instance9"]["TextSize"] = 14;
-    objects["Instance9"]["Size"] = UDim2.new(0, 109, 0, 36);
-    objects["Instance9"]["BackgroundTransparency"] = 0;
-    objects["Instance9"]["TextWrapped"] = true;
-    objects["Instance9"]["ClipsDescendants"] = false;
-    objects["Instance9"]["TextColor3"] = Color3.new(0, 0, 0);
-    objects["Instance9"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance9"]["Text"] = "Pink Police";
-    objects["Instance9"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance9"]["LayoutOrder"] = 0;
-    objects["Instance9"]["Rotation"] = 0;
-    objects["Instance9"]["LineHeight"] = 1;
-    objects["Instance9"]["Name"] = "Pink Police";
-    objects["Instance9"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance9"]["Selectable"] = true;
-    objects["Instance9"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance9"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance9"]["TextTransparency"] = 0;
+local button = page1:AddButton({Caption = "Base", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    objects["Instance10"]["Parent"] = objects["Instance9"];
-    objects["Instance10"]["Name"] = "UICorner";
-    objects["Instance10"]["CornerRadius"] = UDim.new(0, 8);
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-    objects["Instance11"]["Parent"] = objects["Instance9"];
-    objects["Instance11"]["Name"] = "LocalScript";
-    objects["Instance11"]["Enabled"] = true;
+	local twt = {CFrame = CFrame.new(2118.8374, 25.6119308, 420.105835, 0.0404233001, -9.25012102e-08, 0.999182642, 1.00555946e-08, 1, 9.21700689e-08, -0.999182642, 6.3215575e-09, 0.0404233001)}
 
-    objects["Instance12"]["Visible"] = true;
-    objects["Instance12"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance12"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance12"]["Active"] = true;
-    objects["Instance12"]["TextStrokeTransparency"] = 1;
-    objects["Instance12"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance12"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance12"]["ZIndex"] = 1;
-    objects["Instance12"]["BorderSizePixel"] = 0;
-    objects["Instance12"]["Draggable"] = false;
-    objects["Instance12"]["RichText"] = false;
-    objects["Instance12"]["Modal"] = false;
-    objects["Instance12"]["AutoButtonColor"] = true;
-    objects["Instance12"]["Transparency"] = 0;
-    objects["Instance12"]["SelectionOrder"] = 0;
-    objects["Instance12"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance12"]["TextScaled"] = true;
-    objects["Instance12"]["TextWrap"] = true;
-    objects["Instance12"]["FontFace"] = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance12"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance12"]["Parent"] = objects["Instance1"];
-    objects["Instance12"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance12"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance12"]["Position"] = UDim2.new(0.6077097654342651, 0, 0.10701107233762741, 0);
-    objects["Instance12"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance12"]["Selected"] = false;
-    objects["Instance12"]["TextSize"] = 14;
-    objects["Instance12"]["Size"] = UDim2.new(0, 109, 0, 36);
-    objects["Instance12"]["BackgroundTransparency"] = 0;
-    objects["Instance12"]["TextWrapped"] = true;
-    objects["Instance12"]["ClipsDescendants"] = false;
-    objects["Instance12"]["TextColor3"] = Color3.new(0, 0, 0);
-    objects["Instance12"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance12"]["Text"] = "Swat";
-    objects["Instance12"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance12"]["LayoutOrder"] = 0;
-    objects["Instance12"]["Rotation"] = 0;
-    objects["Instance12"]["LineHeight"] = 1;
-    objects["Instance12"]["Name"] = "Swat";
-    objects["Instance12"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance12"]["Selectable"] = true;
-    objects["Instance12"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance12"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance12"]["TextTransparency"] = 0;
+	local tw = tws:Create(Player, twi, twt)
 
-    objects["Instance13"]["Parent"] = objects["Instance12"];
-    objects["Instance13"]["Name"] = "UICorner";
-    objects["Instance13"]["CornerRadius"] = UDim.new(0, 8);
+	tw:Play()
+end})
 
-    objects["Instance14"]["Parent"] = objects["Instance12"];
-    objects["Instance14"]["Name"] = "LocalScript";
-    objects["Instance14"]["Enabled"] = true;
+local button = page1:AddButton({Caption = "Bank", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    objects["Instance15"]["Visible"] = true;
-    objects["Instance15"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance15"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance15"]["Active"] = true;
-    objects["Instance15"]["TextStrokeTransparency"] = 1;
-    objects["Instance15"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance15"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance15"]["ZIndex"] = 1;
-    objects["Instance15"]["BorderSizePixel"] = 0;
-    objects["Instance15"]["Draggable"] = false;
-    objects["Instance15"]["RichText"] = false;
-    objects["Instance15"]["Modal"] = false;
-    objects["Instance15"]["AutoButtonColor"] = true;
-    objects["Instance15"]["Transparency"] = 1;
-    objects["Instance15"]["SelectionOrder"] = 0;
-    objects["Instance15"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance15"]["TextScaled"] = true;
-    objects["Instance15"]["TextWrap"] = true;
-    objects["Instance15"]["FontFace"] = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance15"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance15"]["Parent"] = objects["Instance1"];
-    objects["Instance15"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance15"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance15"]["Position"] = UDim2.new(0.9002267718315125, 0, 0, 0);
-    objects["Instance15"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance15"]["Selected"] = false;
-    objects["Instance15"]["TextSize"] = 14;
-    objects["Instance15"]["Size"] = UDim2.new(0, 44, 0, 36);
-    objects["Instance15"]["BackgroundTransparency"] = 1;
-    objects["Instance15"]["TextWrapped"] = true;
-    objects["Instance15"]["ClipsDescendants"] = false;
-    objects["Instance15"]["TextColor3"] = Color3.new(1, 0, 0);
-    objects["Instance15"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance15"]["Text"] = "X";
-    objects["Instance15"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance15"]["LayoutOrder"] = 0;
-    objects["Instance15"]["Rotation"] = 0;
-    objects["Instance15"]["LineHeight"] = 1;
-    objects["Instance15"]["Name"] = "Close";
-    objects["Instance15"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance15"]["Selectable"] = true;
-    objects["Instance15"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance15"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance15"]["TextTransparency"] = 0;
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-    objects["Instance16"]["Parent"] = objects["Instance15"];
-    objects["Instance16"]["Name"] = "LocalScript";
-    objects["Instance16"]["Enabled"] = true;
+	local twt = {CFrame = CFrame.new(744.991882, 25.0780258, 493.04422, -0.371716291, -6.19023943e-09, 0.928346395, -1.17033971e-09, 1, 6.19941565e-09, -0.928346395, 1.21794308e-09, -0.371716291)}
 
-    objects["Instance17"]["Parent"] = objects["Instance1"];
-    objects["Instance17"]["Name"] = "LocalScript";
-    objects["Instance17"]["Enabled"] = true;
-end;
+	local tw = tws:Create(Player, twi, twt)
 
--- Set scripts
-do
-    task.spawn(function() -- Instance8
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance8"];
-script.Parent.MouseButton1Click:Connect(function()
-    workspace[game.Players.LocalPlayer.Name].Pants.PantsTemplate = "rbxassetid://1606466223"
-    workspace[game.Players.LocalPlayer.Name].Shirt.ShirtTemplate = "rbxassetid://1606465827"
-end)
-    end);
+	tw:Play()
+end})
 
-    task.spawn(function() -- Instance16
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance16"];
-script.Parent.MouseButton1Click:Connect(function()
-    script.Parent.Parent.Parent:Destroy()
-end)
-    end);
+local button = page1:AddButton({Caption = "Casino", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    task.spawn(function() -- Instance14
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance14"];
-script.Parent.MouseButton1Click:Connect(function()
-    workspace[game.Players.LocalPlayer.Name].Pants.PantsTemplate = "rbxassetid://1606464990"
-    workspace[game.Players.LocalPlayer.Name].Shirt.ShirtTemplate = "rbxassetid://1606459132"
-end)
-    end);
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-    task.spawn(function() -- Instance11
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance11"];
-script.Parent.MouseButton1Click:Connect(function()
-    workspace[game.Players.LocalPlayer.Name].Pants.PantsTemplate = "rbxassetid://1825045458"
-    workspace[game.Players.LocalPlayer.Name].Shirt.ShirtTemplate = "rbxassetid://1825045898"
-end)
-    end);
+	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
 
-    task.spawn(function() -- Instance5
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance5"];
-script.Parent.MouseButton1Click:Connect(function()
-    workspace[game.Players.LocalPlayer.Name].Pants.PantsTemplate = "rbxassetid://1606466960"
-    workspace[game.Players.LocalPlayer.Name].Shirt.ShirtTemplate = "rbxassetid://1606466960"
-end)
-    end);
+	local tw = tws:Create(Player, twi, twt)
 
-    task.spawn(function() -- Instance17
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance17"];
-local delta, dragInput
-local function update(input, gui:Frame, dragStart, startPos)
-    delta = input.Position - dragStart
-    gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), nil, nil, 0.3, true)
-    delta = nil    
-end
+	tw:Play()
+end})
 
-local function makeDraggable(gui)
-    local dragging, dragStart, startPos, delta
+local button = page1:AddButton({Caption = "Night Club", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    gui.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = gui.Position
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
+	local twt = {CFrame = CFrame.new(1291.97949, 25.376194, 27.4069691, 0.928695977, 5.02652604e-08, -0.37084201, -7.7985014e-08, 1, -5.97534964e-08, 0.37084201, 8.4412946e-08, 0.928695977)}
 
-    gui.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end)
+	local tw = tws:Create(Player, twi, twt)
 
-    game.UserInputService.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input, gui, dragStart, startPos)
-        end
-    end)
-end
+	tw:Play()
+end})
 
-makeDraggable(script.Parent)
-    end);
-end;
+local button = page1:AddButton({Caption = "Pyramid", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
--- YOUR CODE DOWN HERE --
+	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
 
-local obj = objects["Instance0"];
+	local twt = {CFrame = CFrame.new(-1044.59924, 17.9671173, -506.537415, -0.998576283, -1.06242783e-08, 0.0533427186, -1.35686617e-08, 1, -5.48353221e-08, -0.0533427186, -5.5481042e-08, -0.998576283)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
+local page2 = window:AddPage({Title = "Misc"})
+
+local button = page2:AddButton({Caption = "Walk On Water", Callback = function()
+	for i,v in workspace.Water:GetDescendants() do
+		if v.Name == "Ocean" then
+			v.CanCollide = true
+		end
+	end
+end})
+
+local button = page2:AddButton({Caption = "Outfits", Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/refs/heads/main/clothes"))()
+end})
