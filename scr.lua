@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Fire~Lib: Example", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
@@ -25,6 +25,14 @@ local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
 end, Default = 0, Min = 0, Max = 196, Step = 1})
 
 local page1 = window:AddPage({Title = "Teleport"})
+
+page:AddToggle({Caption = "Toggle", Callback = function(bool)
+	if bool then
+		print("Toggle on")
+	else
+		print("Toggle off")
+	end
+end, Default = false})
 
 local button = page1:AddButton({Caption = "jail", Callback = function()
 	local tws = game:GetService("TweenService")
