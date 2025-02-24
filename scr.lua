@@ -113,3 +113,7 @@ local button = page2:AddButton({Caption = "Walk On Water", Callback = function()
 		end
 	end
 end})
+
+local button = page2:AddButton({Caption = "Clothes", Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/refs/heads/main/clothes"))()
+end})
