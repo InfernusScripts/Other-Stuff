@@ -28,9 +28,13 @@ local page1 = window:AddPage({Title = "Teleport"})
 
 page:AddToggle({Caption = "Toggle", Callback = function(bool)
 	if bool then
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 60
+		while task.wait() do
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 60
+		end
 	else
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+		while task.wait() do
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+		end
 	end
 end, Default = false})
 
