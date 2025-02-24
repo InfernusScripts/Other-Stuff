@@ -4,9 +4,9 @@ local window = lib:MakeWindow({Title = "Fire~Lib: Example", CloseCallback = func
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
-	Main = Color3.new(0, 1, 0.117647), -- pink
-	Text = Color3.new(0, 0, 0), -- soft pink
-	Back = Color3.fromRGB(109, 109, 109) -- dark pink
+	Main = Color3.new(1, 0.533333, 0), -- pink
+	Text = Color3.new(1, 1, 1), -- soft pink
+	Back = Color3.fromRGB(50, 50, 50) -- dark pink
 }
 })
 
