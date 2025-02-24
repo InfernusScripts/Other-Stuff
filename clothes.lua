@@ -23,6 +23,7 @@ local objects = {
     ["Instance14"] = Instance.new("LocalScript"); -- LocalScript
     ["Instance15"] = Instance.new("TextButton"); -- Close
     ["Instance16"] = Instance.new("LocalScript"); -- LocalScript
+    ["Instance17"] = Instance.new("LocalScript"); -- LocalScript
 };
 
 do -- Set properties
@@ -323,6 +324,10 @@ do -- Set properties
     objects["Instance16"]["Parent"] = objects["Instance15"];
     objects["Instance16"]["Name"] = "LocalScript";
     objects["Instance16"]["Enabled"] = true;
+
+    objects["Instance17"]["Parent"] = objects["Instance0"];
+    objects["Instance17"]["Name"] = "LocalScript";
+    objects["Instance17"]["Enabled"] = true;
 end;
 
 -- Set scripts
@@ -369,6 +374,49 @@ script.Parent.MouseButton1Click:Connect(function()
     workspace[game.Players.LocalPlayer.Name].Pants.PantsTemplate = "rbxassetid://1606466960"
     workspace[game.Players.LocalPlayer.Name].Shirt.ShirtTemplate = "rbxassetid://1606466960"
 end)
+    end);
+
+    task.spawn(function() -- Instance17
+if not game:GetService("RunService"):IsClient() then return end
+local script = objects["Instance17"];
+local delta, dragInput
+local function update(input, gui:Frame, dragStart, startPos)
+    delta = input.Position - dragStart
+    gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), nil, nil, 0.3, true)
+    delta = nil    
+end
+
+local function makeDraggable(gui)
+    local dragging, dragStart, startPos, delta
+
+    gui.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = gui.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    gui.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    game.UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input, gui, dragStart, startPos)
+        end
+    end)
+end
+
+makeDraggable(script.Parent.Frame)
     end);
 end;
 
