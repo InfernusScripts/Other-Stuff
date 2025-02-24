@@ -1,156 +1,115 @@
--- [[ GENERATED WITH InfernoHub/Scriptify STUDIO PLUGIN ]] --
--- Scriptify Version: 1.0
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
---
+local window = lib:MakeWindow({Title = "Fire~Lib: Example", CloseCallback = function()
+	print("Closed!")
+end, Size = UDim2.fromScale(1, 0.75), -- size is not important
+Theme = { -- theme is not important too
+	Main = Color3.new(0, 1, 0.117647), -- pink
+	Text = Color3.new(0, 0, 0), -- soft pink
+	Back = Color3.fromRGB(109, 109, 109) -- dark pink
+}
+})
 
--- Create objects
-local parent = game:GetService("CoreGui");
-local objects = {
-    ["Instance0"] = Instance.new("ScreenGui"); -- Mad_City
-    ["Instance1"] = Instance.new("TextButton"); -- TextButton
-    ["Instance2"] = Instance.new("UICorner"); -- UICorner
-    ["Instance3"] = Instance.new("Frame"); -- Frame
-    ["Instance4"] = Instance.new("UICorner"); -- UICorner
-    ["Instance5"] = Instance.new("LocalScript"); -- LocalScript
-};
+local page = window:AddPage({Title = "Player"})
 
-do -- Set properties
-    objects["Instance0"]["Enabled"] = true;
-    objects["Instance0"]["ScreenInsets"] = Enum.ScreenInsets.CoreUISafeInsets;
-    objects["Instance0"]["SafeAreaCompatibility"] = Enum.SafeAreaCompatibility.FullscreenExtension;
-    objects["Instance0"]["ClipToDeviceSafeArea"] = true;
-    objects["Instance0"]["Parent"] = parent;
-    objects["Instance0"]["IgnoreGuiInset"] = false;
-    objects["Instance0"]["Name"] = "Mad_City";
-    objects["Instance0"]["DisplayOrder"] = 0;
+local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+end, Default = 16, Min = 0, Max = 100, Step = 1})
 
-    objects["Instance1"]["Visible"] = true;
-    objects["Instance1"]["FontSize"] = Enum.FontSize.Size14;
-    objects["Instance1"]["TextDirection"] = Enum.TextDirection.Auto;
-    objects["Instance1"]["Active"] = true;
-    objects["Instance1"]["TextStrokeTransparency"] = 1;
-    objects["Instance1"]["TextTruncate"] = Enum.TextTruncate.None;
-    objects["Instance1"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance1"]["ZIndex"] = 1;
-    objects["Instance1"]["BorderSizePixel"] = 0;
-    objects["Instance1"]["Draggable"] = false;
-    objects["Instance1"]["RichText"] = false;
-    objects["Instance1"]["Modal"] = false;
-    objects["Instance1"]["AutoButtonColor"] = false;
-    objects["Instance1"]["Transparency"] = 0;
-    objects["Instance1"]["SelectionOrder"] = 0;
-    objects["Instance1"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-    objects["Instance1"]["TextScaled"] = false;
-    objects["Instance1"]["TextWrap"] = false;
-    objects["Instance1"]["FontFace"] = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal, false);
-    objects["Instance1"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance1"]["Parent"] = objects["Instance0"];
-    objects["Instance1"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance1"]["Style"] = Enum.ButtonStyle.Custom;
-    objects["Instance1"]["Position"] = UDim2.new(0.2890341281890869, 0, 0.24052132666110992, 0);
-    objects["Instance1"]["BackgroundColor3"] = Color3.new(1, 1, 1);
-    objects["Instance1"]["Selected"] = false;
-    objects["Instance1"]["TextSize"] = 14;
-    objects["Instance1"]["Size"] = UDim2.new(0, 507, 0, 337);
-    objects["Instance1"]["BackgroundTransparency"] = 0;
-    objects["Instance1"]["TextWrapped"] = false;
-    objects["Instance1"]["ClipsDescendants"] = false;
-    objects["Instance1"]["TextColor3"] = Color3.new(0, 0, 0);
-    objects["Instance1"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance1"]["Text"] = "";
-    objects["Instance1"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance1"]["LayoutOrder"] = 0;
-    objects["Instance1"]["Rotation"] = 0;
-    objects["Instance1"]["LineHeight"] = 1;
-    objects["Instance1"]["Name"] = "TextButton";
-    objects["Instance1"]["TextXAlignment"] = Enum.TextXAlignment.Center;
-    objects["Instance1"]["Selectable"] = true;
-    objects["Instance1"]["MaxVisibleGraphemes"] = -1;
-    objects["Instance1"]["TextStrokeColor3"] = Color3.new(0, 0, 0);
-    objects["Instance1"]["TextTransparency"] = 0;
+local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
+	game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
+end, Default = 50, Min = 0, Max = 100, Step = 1})
 
-    objects["Instance2"]["Parent"] = objects["Instance1"];
-    objects["Instance2"]["Name"] = "UICorner";
-    objects["Instance2"]["CornerRadius"] = UDim.new(0, 8);
+local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
+	workspace.Gravity = number
+end, Default = 0, Min = 0, Max = 196, Step = 1})
 
-    objects["Instance3"]["LayoutOrder"] = 0;
-    objects["Instance3"]["Active"] = false;
-    objects["Instance3"]["Parent"] = objects["Instance1"];
-    objects["Instance3"]["AnchorPoint"] = Vector2.new(0, 0);
-    objects["Instance3"]["SizeConstraint"] = Enum.SizeConstraint.RelativeXY;
-    objects["Instance3"]["ZIndex"] = 1;
-    objects["Instance3"]["AutomaticSize"] = Enum.AutomaticSize.None;
-    objects["Instance3"]["Size"] = UDim2.new(0, 124, 0, 337);
-    objects["Instance3"]["Draggable"] = false;
-    objects["Instance3"]["Style"] = Enum.FrameStyle.Custom;
-    objects["Instance3"]["ClipsDescendants"] = false;
-    objects["Instance3"]["BorderColor3"] = Color3.new(0, 0, 0);
-    objects["Instance3"]["BorderMode"] = Enum.BorderMode.Outline;
-    objects["Instance3"]["BackgroundTransparency"] = 0;
-    objects["Instance3"]["BorderSizePixel"] = 0;
-    objects["Instance3"]["Rotation"] = 0;
-    objects["Instance3"]["Transparency"] = 0;
-    objects["Instance3"]["Name"] = "Frame";
-    objects["Instance3"]["SelectionOrder"] = 0;
-    objects["Instance3"]["Visible"] = true;
-    objects["Instance3"]["Selectable"] = false;
-    objects["Instance3"]["Position"] = UDim2.new(0, 0, 0, 0);
-    objects["Instance3"]["BackgroundColor3"] = Color3.new(0.584314, 0.584314, 0.584314);
+local page1 = window:AddPage({Title = "Teleport"})
 
-    objects["Instance4"]["Parent"] = objects["Instance3"];
-    objects["Instance4"]["Name"] = "UICorner";
-    objects["Instance4"]["CornerRadius"] = UDim.new(0, 8);
+local button = page1:AddButton({Caption = "jail", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    objects["Instance5"]["Parent"] = objects["Instance1"];
-    objects["Instance5"]["Name"] = "LocalScript";
-    objects["Instance5"]["Enabled"] = true;
-end;
+	local twi = TweenInfo.new(20)
 
--- Set scripts
-do
-    task.spawn(function() -- Instance5
-if not game:GetService("RunService"):IsClient() then return end
-local script = objects["Instance5"];
-local delta, dragInput
-local function update(input, gui, dragStart, startPos)
-    delta = input.Position - dragStart
-    gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), nil, nil, 0.3, true)
-    delta = nil    
-end
+	local twt = {CFrame = CFrame.new(-891.315857, 53.8770714, -2746.86304, -0.999704361, 0.00340574235, 0.0240733363, -0.00257628458, 0.969727278, -0.244176939, -0.0241761748, -0.244166762, -0.969431818)}
 
-local function makeDraggable(gui)
-    local dragging, dragStart, startPos, delta
+	local tw = tws:Create(Player, twi, twt)
 
-    gui.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = gui.Position
+	tw:Play()
+end})
 
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
+local button = page1:AddButton({Caption = "Base", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-    gui.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end)
+	local twi = TweenInfo.new(20)
 
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input, gui, dragStart, startPos)
-        end
-    end)
-end
-makeDraggable(script.Parent)
-    end);
-end;
+	local twt = {CFrame = CFrame.new(2118.8374, 25.6119308, 420.105835, 0.0404233001, -9.25012102e-08, 0.999182642, 1.00555946e-08, 1, 9.21700689e-08, -0.999182642, 6.3215575e-09, 0.0404233001)}
 
--- YOUR CODE DOWN HERE --
+	local tw = tws:Create(Player, twi, twt)
 
-local obj = objects["Instance0"];
+	tw:Play()
+end})
+
+local button = page1:AddButton({Caption = "Bank", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(20)
+
+	local twt = {CFrame = CFrame.new(744.991882, 25.0780258, 493.04422, -0.371716291, -6.19023943e-09, 0.928346395, -1.17033971e-09, 1, 6.19941565e-09, -0.928346395, 1.21794308e-09, -0.371716291)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
+local button = page1:AddButton({Caption = "Casino", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(20)
+
+	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
+local button = page1:AddButton({Caption = "Night Club", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(20)
+
+	local twt = {CFrame = CFrame.new(1291.97949, 25.376194, 27.4069691, 0.928695977, 5.02652604e-08, -0.37084201, -7.7985014e-08, 1, -5.97534964e-08, 0.37084201, 8.4412946e-08, 0.928695977)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
+local button = page1:AddButton({Caption = "Pyramid", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(20)
+
+	local twt = {CFrame = CFrame.new(-1044.59924, 17.9671173, -506.537415, -0.998576283, -1.06242783e-08, 0.0533427186, -1.35686617e-08, 1, -5.48353221e-08, -0.0533427186, -5.5481042e-08, -0.998576283)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
+local page2 = window:AddPage({Title = "Misc"})
+
+local button = page2:AddButton({Caption = "Walk On Water", Callback = function()
+	for i,v in workspace.Water:GetDescendants() do
+		if v.Name == "Ocean" then
+			v.CanCollide = true
+		end
+	end
+end})
