@@ -137,6 +137,24 @@ end})
 
 local page2 = window:AddPage({Title = "Misc"})
 
+local button = page2:AddButton({Caption = "Outfits", Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/refs/heads/main/clothes.lua"))()
+end})
+
+
+local button = page2:AddButton({Caption = "Delete all Lasers", Callback = function()
+	workspace.RandomModels.DeathLights:Destroy()
+	workspace.Casino.CasinoDoor.SpinLaser1:Destroy()
+	workspace.Casino.CasinoDoor.SpinLaser2:Destroy()
+	workspace.Casino.CasinoDoor.SpinLaser3:Destroy()
+	for i,v in workspace.Ignore.WorldObjects:GetDescendants() do
+		if v.Name == "Lasers" then
+			v:Destroy()
+		end
+	end
+
+end})
+
 page2:AddToggle({Caption = "Jesus", Callback = function(bool)
 	if bool then
 		for i,v in workspace.Water:GetDescendants() do
@@ -175,42 +193,11 @@ page2:AddToggle({Caption = "Noclip", Callback = function(bool)
 		end
 	else
 		while task.wait() do
-			game.Players.LocalPlayer.Character.Head.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftFoot.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftHand.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftLowerArm.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftLowerLeg.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftUpperArm.CanCollide = true
-			game.Players.LocalPlayer.Character.LeftUpperLeg.CanCollide = true
 			game.Players.LocalPlayer.Character.LowerTorso.CanCollide = true
-			game.Players.LocalPlayer.Character.RightFoot.CanCollide = true
-			game.Players.LocalPlayer.Character.RightHand.CanCollide = true
-			game.Players.LocalPlayer.Character.RightLowerArm.CanCollide = true
-			game.Players.LocalPlayer.Character.RightLowerLeg.CanCollide = true
-			game.Players.LocalPlayer.Character.RightUpperArm.CanCollide = true
-			game.Players.LocalPlayer.Character.RightUpperLeg.CanCollide = true
 			game.Players.LocalPlayer.Character.UpperTorso.CanCollide = true
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = true
 		end
 	end
 end, Default = false})
-
-local button = page2:AddButton({Caption = "Delete all Lasers", Callback = function()
-	workspace.RandomModels.DeathLights:Destroy()
-	workspace.Casino.CasinoDoor.SpinLaser1:Destroy()
-	workspace.Casino.CasinoDoor.SpinLaser2:Destroy()
-	workspace.Casino.CasinoDoor.SpinLaser3:Destroy()
-	for i,v in workspace.Ignore.WorldObjects:GetDescendants() do
-		if v.Name == "Lasers" then
-			v:Destroy()
-		end
-	end
-	
-end})
-
-local button = page2:AddButton({Caption = "Outfits", Callback = function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/refs/heads/main/clothes.lua"))()
-end})
 
 local page2 = window:AddPage({Title = "Rob"})
 
