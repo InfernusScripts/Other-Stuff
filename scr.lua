@@ -20,9 +20,9 @@ end, Default = 16, Min = 0, Max = 50, Step = 1})
 
 local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
 	while task.wait() do
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
 	end
-end, Default = 50, Min = 50, Max = 10, Step = 1})
+end, Default = 50, Min = 50, Max = 100, Step = 1})
 
 local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
 	workspace.Gravity = number
@@ -120,15 +120,38 @@ local button = page1:AddButton({Caption = "Pyramid", Callback = function()
 	tw:Play()
 end})
 
+local button = page1:AddButton({Caption = "AitPort", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+
+	local twt = {CFrame = CFrame.new(1265.83276, 150.028152, 68.4899139, 0.871536076, 1.39361136e-08, -0.490331411, -3.2054146e-09, 1, 2.27243842e-08, 0.490331411, -1.82334059e-08, 0.871536076)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+end})
+
 local page2 = window:AddPage({Title = "Misc"})
 
-local button = page2:AddButton({Caption = "Walk On Water", Callback = function()
-	for i,v in workspace.Water:GetDescendants() do
-		if v.Name == "Ocean" then
-			v.CanCollide = true
+page:AddToggle({Caption = "Jesus", Callback = function(bool)
+	if bool then
+		for i,v in workspace.Water:GetDescendants() do
+			if v.Name == "Ocean" then
+				v.CanCollide = true
+			end
+		end
+	else
+		for _,g in workspace.Water:GetDescendants() do
+			if g.Name == "Ocean" then
+				g.CanCollide = false
+			end
 		end
 	end
-end})
+end, Default = false})
 
 local button = page2:AddButton({Caption = "Delete all Lasers", Callback = function()
 	workspace.RandomModels.DeathLights:Destroy()
