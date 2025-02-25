@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Mad City, V1", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City, V1.001", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
@@ -13,13 +13,13 @@ Theme = { -- theme is not important too
 local page = window:AddPage({Title = "Player"})
 
 local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
-	while task.wait(1) do
+	while task.wait(0.2) do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
 	end
 end, Default = 16, Min = 16, Max = 50, Step = 1})
 
 local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
-	while task.wait(1) do
+	while task.wait(0.2) do
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
 	end
 end, Default = 50, Min = 50, Max = 100, Step = 1})
