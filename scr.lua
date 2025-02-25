@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Mad City, V1.001", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City, V1.002", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
@@ -36,7 +36,7 @@ local button = page1:AddButton({Caption = "jail", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(-891.315735, 200.363571, -2746.88672, -0.999577403, -3.27805921e-10, 0.0290685482, -7.88245302e-10, 1, -1.582832e-08, -0.0290685482, -1.58445435e-08, -0.999577403)}
 
@@ -51,7 +51,7 @@ local button = page1:AddButton({Caption = "Base", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(2046.75903, 173.487808, 422.014343, 0.0357422642, -2.03126227e-08, 0.999361038, 2.16764864e-08, 1, 1.95503489e-08, -0.999361038, 2.09638618e-08, 0.0357422642)}
 
@@ -66,7 +66,7 @@ local button = page1:AddButton({Caption = "Bank", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(814.495056, 173.126984, 475.994812, -0.423795998, 2.33973303e-08, 0.905757666, 1.1303336e-08, 1, -2.05430464e-08, -0.905757666, 1.53202251e-09, -0.423795998)}
 
@@ -81,7 +81,7 @@ local button = page1:AddButton({Caption = "Casino", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(1702.25732, 183.934143, 873.458008, 0.999720037, -8.02830868e-08, 0.0236612279, 7.99264512e-08, 1, 1.60184594e-08, -0.0236612279, -1.41228167e-08, 0.999720037)}
 
@@ -96,7 +96,7 @@ local button = page1:AddButton({Caption = "Night Club", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(1265.83276, 150.028152, 68.4899139, 0.871536076, 1.39361136e-08, -0.490331411, -3.2054146e-09, 1, 2.27243842e-08, 0.490331411, -1.82334059e-08, 0.871536076)}
 
@@ -111,7 +111,7 @@ local button = page1:AddButton({Caption = "Pyramid", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(-1044.59924, 166.333191, -506.537445, -0.998576283, 2.34667432e-08, 0.0533427186, 2.92153093e-08, 1, 1.06986889e-07, -0.0533427186, 1.08392989e-07, -0.998576283)}
 
@@ -126,7 +126,7 @@ local button = page1:AddButton({Caption = "AitPort", Callback = function()
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(1265.83276, 150.028152, 68.4899139, 0.871536076, 1.39361136e-08, -0.490331411, -3.2054146e-09, 1, 2.27243842e-08, 0.490331411, -1.82334059e-08, 0.871536076)}
 
@@ -211,7 +211,7 @@ local button = page2:AddButton({Caption = "Auto Rob Casino", Callback = function
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
 
 	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
 
