@@ -13,13 +13,13 @@ Theme = { -- theme is not important too
 local page = window:AddPage({Title = "Player"})
 
 local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
-	while task.wait() do
+	while task.wait(1) do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
 	end
 end, Default = 16, Min = 16, Max = 50, Step = 1})
 
 local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
-	while task.wait() do
+	while task.wait(1) do
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
 	end
 end, Default = 50, Min = 50, Max = 100, Step = 1})
@@ -143,6 +143,7 @@ end})
 
 
 local button = page2:AddButton({Caption = "Delete all Lasers", Callback = function()
+	-- Casino
 	workspace.RandomModels.DeathLights:Destroy()
 	workspace.Casino.CasinoDoor.SpinLaser1:Destroy()
 	workspace.Casino.CasinoDoor.SpinLaser2:Destroy()
@@ -152,7 +153,12 @@ local button = page2:AddButton({Caption = "Delete all Lasers", Callback = functi
 			v:Destroy()
 		end
 	end
-
+	-- Night Club
+	workspace.Club.SpinLaser:Destroy()
+	workspace.Club.DeathLights:Destroy()
+	workspace.Ignore.WorldObjects["Lasers Club"]:Destroy()
+	workspace.Club.SlideLaser:Destroy()
+	workspace.Club.DeathLights:Destroy()
 end})
 
 page2:AddToggle({Caption = "Jesus", Callback = function(bool)
