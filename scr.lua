@@ -16,7 +16,7 @@ local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(numbe
 	while task.wait() do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
 	end
-end, Default = 16, Min = 0, Max = 50, Step = 1})
+end, Default = 16, Min = 16, Max = 50, Step = 1})
 
 local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
 	while task.wait() do
