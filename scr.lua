@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Mad City, V1.003", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City, V1.004", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
@@ -252,14 +252,16 @@ local button = page2:AddButton({Caption = "Auto Rob Bank", Callback = function()
 	local tw = tws:Create(Player, twi, twt)
 
 	tw:Play()
-	wait(10)
+	wait(6)
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 	Player.CFrame = CFrame.new(592.559265, 25.1230316, 554.074158, -0.373943597, 1.19133915e-07, 0.927451432, 3.27592318e-08, 1, -1.15244639e-07, -0.927451432, -1.27124e-08, -0.373943597)
 	wait(1)
 	Player.CFrame = CFrame.new(596.993042, 83.1780167, 501.055939, 0.301909626, 2.39833327e-08, -0.953336537, 7.70982389e-09, 1, 2.75988619e-08, 0.953336537, -1.56824189e-08, 0.301909626)
 	wait(1)
+	Player.CFrame = CFrame.new(674.286987, 82.8892212, 561.751648, -0.95137769, 4.78577142e-08, -0.308026761, 3.0383422e-08, 1, 6.15258386e-08, 0.308026761, 4.91754015e-08, -0.95137769)
+	wait(10)
 	Player.CFrame = CFrame.new(679.660339, 84.2228394, 582.368347, 0.925700486, 1.54215503e-08, 0.378257334, 2.52398058e-09, 1, -4.69468766e-08, -0.378257334, 4.44134614e-08, 0.925700486)
-	wait(15)
+	wait(25)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
 
 	local tws1 = game:GetService("TweenService")
@@ -271,6 +273,8 @@ local button = page2:AddButton({Caption = "Auto Rob Bank", Callback = function()
 	local tw1 = tws1:Create(Player, twi1, twt1)
 
 	tw1:Play()
+	wait(7)
+	Player.CFrame = CFrame.new(2117.20068, 25.6119308, 424.958618, -0.0255814847, 2.94031799e-09, -0.999672711, 5.08918796e-10, 1, 2.92825741e-09, 0.999672711, -4.33843073e-10, -0.0255814847)
 end})
 
 local button = page2:AddButton({Caption = "Auto Rob Casino", Callback = function()
@@ -286,11 +290,40 @@ local button = page2:AddButton({Caption = "Auto Rob Casino", Callback = function
 	tw:Play()
 	
 	wait(1)
-	
-	Player.CFrame = CFrame.new(1695.62646, 37.6856499, 737.516357, -0.998051286, -0.0141359698, -0.0607756861, -0.0350963548, 0.932502031, 0.359455496, 0.0515922047, 0.360888064, -0.931181014)
+
+	Player.CFrame = CFrame.new(1696.67773, 37.7780952, 738.859314, -0.989714384, -3.61272114e-08, 0.143057406, -4.89659122e-08, 1, -8.62245386e-08, -0.143057406, -9.23426029e-08, -0.989714384)
 	wait(1)
+	
+	local args = {
+		[1] = "PlaySound",
+		[2] = 1193305722,
+		[3] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("Event"):FireServer(unpack(args))
 	workspace:WaitForChild("ObjectSelection"):WaitForChild("HackComputer"):WaitForChild("NoHack"):WaitForChild("HackComputer"):WaitForChild("Event"):FireServer()
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1598.21265, 40.8205872, 501.045166, 0.996911049, -1.09473923e-08, 0.0785387158, 1.71928676e-08, 1, -7.88447849e-08, -0.0785387158, 7.99515405e-08, 0.996911049)
-	wait()
+
 end})
 
+local button = page2:AddButton({Caption = "Auto Rob Pyramid", Callback = function()
+	
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
+
+	local twt = {CFrame = CFrame.new(-1044.59924, 166.333191, -506.537445, -0.998576283, 2.34667432e-08, 0.0533427186, 2.92153093e-08, 1, 1.06986889e-07, -0.0533427186, 1.08392989e-07, -0.998576283)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+	wait(6)
+	
+	Player:PivotTo(workspace.Pyramid.Tele.Core1:GetPivot())
+	
+	wait(3)
+	
+	Player.CFrame = CFrame.new(1231.8031, 51053.5156, 464.780792, -0.997747123, -2.56663704e-08, 0.0670867115, -2.71697846e-08, 1, -2.1497641e-08, -0.0670867115, -2.32719408e-08, -0.997747123)
+end})
