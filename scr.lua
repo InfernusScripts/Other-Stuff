@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Mad City", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City, V1", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
