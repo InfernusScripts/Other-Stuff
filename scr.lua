@@ -153,44 +153,44 @@ page2:AddToggle({Caption = "Jesus", Callback = function(bool)
 	end
 end, Default = false})
 
-page2:AddToggle({Caption = "Jesus", Callback = function(bool)
+page2:AddToggle({Caption = "Noclip", Callback = function(bool)
 	if bool then
 		while task.wait() do
 			game.Players.LocalPlayer.Character.Head.CanCollide = false
-			game.Players.LocalPlayer.Character.Head.LeftFoot = false
-			game.Players.LocalPlayer.Character.Head.LeftHand = false
-			game.Players.LocalPlayer.Character.Head.LeftLowerArm = false
-			game.Players.LocalPlayer.Character.Head.LeftLowerLeg = false
-			game.Players.LocalPlayer.Character.Head.LeftUpperArm = false
-			game.Players.LocalPlayer.Character.Head.LeftUpperLeg = false
-			game.Players.LocalPlayer.Character.Head.LowerTorso = false
-			game.Players.LocalPlayer.Character.Head.RightFoot = false
-			game.Players.LocalPlayer.Character.Head.RightHand = false
-			game.Players.LocalPlayer.Character.Head.RightLowerArm = false
-			game.Players.LocalPlayer.Character.Head.RightLowerLeg = false
-			game.Players.LocalPlayer.Character.Head.RightUpperArm = false
-			game.Players.LocalPlayer.Character.Head.RightUpperLeg = false
-			game.Players.LocalPlayer.Character.Head.UpperTorso = false
-			game.Players.LocalPlayer.Character.Head.HumanoidRootPart = false
+			game.Players.LocalPlayer.Character.LeftFoot.CanCollide = false
+			game.Players.LocalPlayer.Character.LeftHand.CanCollide = false
+			game.Players.LocalPlayer.Character.LeftLowerArm.CanCollide = false
+			game.Players.LocalPlayer.Character.LeftLowerLeg.CanCollide = false
+			game.Players.LocalPlayer.Character.LeftUpperArm.CanCollide = false
+			game.Players.LocalPlayer.Character.LeftUpperLeg.CanCollide = false
+			game.Players.LocalPlayer.Character.LowerTorso.CanCollide = false
+			game.Players.LocalPlayer.Character.RightFoot.CanCollide = false
+			game.Players.LocalPlayer.Character.RightHand.CanCollide = false
+			game.Players.LocalPlayer.Character.RightLowerArm.CanCollide = false
+			game.Players.LocalPlayer.Character.RightLowerLeg.CanCollide = false
+			game.Players.LocalPlayer.Character.RightUpperArm.CanCollide = false
+			game.Players.LocalPlayer.Character.RightUpperLeg.CanCollide = false
+			game.Players.LocalPlayer.Character.UpperTorso.CanCollide = false
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
 		end
 	else
 		while task.wait() do
 			game.Players.LocalPlayer.Character.Head.CanCollide = true
-			game.Players.LocalPlayer.Character.Head.LeftFoot = true
-			game.Players.LocalPlayer.Character.Head.LeftHand = true
-			game.Players.LocalPlayer.Character.Head.LeftLowerArm = true
-			game.Players.LocalPlayer.Character.Head.LeftLowerLeg = true
-			game.Players.LocalPlayer.Character.Head.LeftUpperArm = true
-			game.Players.LocalPlayer.Character.Head.LeftUpperLeg = true
-			game.Players.LocalPlayer.Character.Head.LowerTorso = true
-			game.Players.LocalPlayer.Character.Head.RightFoot = true
-			game.Players.LocalPlayer.Character.Head.RightHand = true
-			game.Players.LocalPlayer.Character.Head.RightLowerArm = true
-			game.Players.LocalPlayer.Character.Head.RightLowerLeg = true
-			game.Players.LocalPlayer.Character.Head.RightUpperArm = true
-			game.Players.LocalPlayer.Character.Head.RightUpperLeg = true
-			game.Players.LocalPlayer.Character.Head.UpperTorso = true
-			game.Players.LocalPlayer.Character.Head.HumanoidRootPart = true
+			game.Players.LocalPlayer.Character.LeftFoot.CanCollide = true
+			game.Players.LocalPlayer.Character.LeftHand.CanCollide = true
+			game.Players.LocalPlayer.Character.LeftLowerArm.CanCollide = true
+			game.Players.LocalPlayer.Character.LeftLowerLeg.CanCollide = true
+			game.Players.LocalPlayer.Character.LeftUpperArm.CanCollide = true
+			game.Players.LocalPlayer.Character.LeftUpperLeg.CanCollide = true
+			game.Players.LocalPlayer.Character.LowerTorso.CanCollide = true
+			game.Players.LocalPlayer.Character.RightFoot.CanCollide = true
+			game.Players.LocalPlayer.Character.RightHand.CanCollide = true
+			game.Players.LocalPlayer.Character.RightLowerArm.CanCollide = true
+			game.Players.LocalPlayer.Character.RightLowerLeg.CanCollide = true
+			game.Players.LocalPlayer.Character.RightUpperArm.CanCollide = true
+			game.Players.LocalPlayer.Character.RightUpperLeg.CanCollide = true
+			game.Players.LocalPlayer.Character.UpperTorso.CanCollide = true
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = true
 		end
 	end
 end, Default = false})
