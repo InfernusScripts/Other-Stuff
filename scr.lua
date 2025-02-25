@@ -12,49 +12,33 @@ Theme = { -- theme is not important too
 
 local page = window:AddPage({Title = "Player"})
 
-page:AddToggle({Caption = "Walk Speed", Callback = function(bool)
-	if bool then
-		while task.wait() do
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
-		end
-	else
-		while task.wait() do
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
-		end
-	end
-end, Default = false})
-
-page:AddToggle({Caption = "Jump Power", Callback = function(bool)
-	if bool then
-		while task.wait() do
-			game.Players.LocalPlayer.Character.Humanoid.JumpPower = 100
-		end
-	else
-		while task.wait() do
-			game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-		end
-	end
-end, Default = false})
-
 local slider = page:AddSlider({Caption = "Walk Speed", Callback = function(number)
 	while task.wait() do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
 	end
-end, Default = 16, Min = 0, Max = 100, Step = 1})
+end, Default = 16, Min = 0, Max = 50, Step = 1})
+
+local slider = page:AddSlider({Caption = "Jump Power", Callback = function(number)
+	while task.wait() do
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+	end
+end, Default = 50, Min = 50, Max = 10, Step = 1})
 
 local slider = page:AddSlider({Caption = "Gravity", Callback = function(number)
 	workspace.Gravity = number
-end, Default = 16, Min = 0, Max = 196, Step = 1})
+end, Default = 196, Min = 0, Max = 196, Step = 1})
 
 local page1 = window:AddPage({Title = "Teleport"})
 
 local button = page1:AddButton({Caption = "jail", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(-891.315857, 53.8770714, -2746.86304, -0.999704361, 0.00340574235, 0.0240733363, -0.00257628458, 0.969727278, -0.244176939, -0.0241761748, -0.244166762, -0.969431818)}
+	local twt = {CFrame = CFrame.new(-891.315735, 200.363571, -2746.88672, -0.999577403, -3.27805921e-10, 0.0290685482, -7.88245302e-10, 1, -1.582832e-08, -0.0290685482, -1.58445435e-08, -0.999577403)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -62,12 +46,14 @@ local button = page1:AddButton({Caption = "jail", Callback = function()
 end})
 
 local button = page1:AddButton({Caption = "Base", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(2118.8374, 25.6119308, 420.105835, 0.0404233001, -9.25012102e-08, 0.999182642, 1.00555946e-08, 1, 9.21700689e-08, -0.999182642, 6.3215575e-09, 0.0404233001)}
+	local twt = {CFrame = CFrame.new(2046.75903, 173.487808, 422.014343, 0.0357422642, -2.03126227e-08, 0.999361038, 2.16764864e-08, 1, 1.95503489e-08, -0.999361038, 2.09638618e-08, 0.0357422642)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -75,12 +61,14 @@ local button = page1:AddButton({Caption = "Base", Callback = function()
 end})
 
 local button = page1:AddButton({Caption = "Bank", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(744.991882, 25.0780258, 493.04422, -0.371716291, -6.19023943e-09, 0.928346395, -1.17033971e-09, 1, 6.19941565e-09, -0.928346395, 1.21794308e-09, -0.371716291)}
+	local twt = {CFrame = CFrame.new(814.495056, 173.126984, 475.994812, -0.423795998, 2.33973303e-08, 0.905757666, 1.1303336e-08, 1, -2.05430464e-08, -0.905757666, 1.53202251e-09, -0.423795998)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -88,12 +76,14 @@ local button = page1:AddButton({Caption = "Bank", Callback = function()
 end})
 
 local button = page1:AddButton({Caption = "Casino", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
+	local twt = {CFrame = CFrame.new(1702.25732, 183.934143, 873.458008, 0.999720037, -8.02830868e-08, 0.0236612279, 7.99264512e-08, 1, 1.60184594e-08, -0.0236612279, -1.41228167e-08, 0.999720037)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -101,12 +91,14 @@ local button = page1:AddButton({Caption = "Casino", Callback = function()
 end})
 
 local button = page1:AddButton({Caption = "Night Club", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(1291.97949, 25.376194, 27.4069691, 0.928695977, 5.02652604e-08, -0.37084201, -7.7985014e-08, 1, -5.97534964e-08, 0.37084201, 8.4412946e-08, 0.928695977)}
+	local twt = {CFrame = CFrame.new(1265.83276, 150.028152, 68.4899139, 0.871536076, 1.39361136e-08, -0.490331411, -3.2054146e-09, 1, 2.27243842e-08, 0.490331411, -1.82334059e-08, 0.871536076)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -114,12 +106,14 @@ local button = page1:AddButton({Caption = "Night Club", Callback = function()
 end})
 
 local button = page1:AddButton({Caption = "Pyramid", Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,150,0)	
+
 	local tws = game:GetService("TweenService")
 	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
 
-	local twi = TweenInfo.new(20, Enum.EasingStyle.Linear)
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
 
-	local twt = {CFrame = CFrame.new(-1044.59924, 17.9671173, -506.537415, -0.998576283, -1.06242783e-08, 0.0533427186, -1.35686617e-08, 1, -5.48353221e-08, -0.0533427186, -5.5481042e-08, -0.998576283)}
+	local twt = {CFrame = CFrame.new(-1044.59924, 166.333191, -506.537445, -0.998576283, 2.34667432e-08, 0.0533427186, 2.92153093e-08, 1, 1.06986889e-07, -0.0533427186, 1.08392989e-07, -0.998576283)}
 
 	local tw = tws:Create(Player, twi, twt)
 
@@ -136,6 +130,34 @@ local button = page2:AddButton({Caption = "Walk On Water", Callback = function()
 	end
 end})
 
+local button = page2:AddButton({Caption = "Delete all Lasers", Callback = function()
+	workspace.RandomModels.DeathLights:Destroy()
+end})
+
 local button = page2:AddButton({Caption = "Outfits", Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Other-Stuff/refs/heads/main/clothes.lua"))()
 end})
+
+local page2 = window:AddPage({Title = "Rob"})
+
+local button = page2:AddButton({Caption = "Auto Rob Casino", Callback = function()
+	local tws = game:GetService("TweenService")
+	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+
+	local twi = TweenInfo.new(10, Enum.EasingStyle.Linear)
+
+	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
+
+	local tw = tws:Create(Player, twi, twt)
+
+	tw:Play()
+	
+	wait(1)
+	
+	Player.CFrame = CFrame.new(1695.62646, 37.6856499, 737.516357, -0.998051286, -0.0141359698, -0.0607756861, -0.0350963548, 0.932502031, 0.359455496, 0.0515922047, 0.360888064, -0.931181014)
+	wait(1)
+	workspace:WaitForChild("ObjectSelection"):WaitForChild("HackComputer"):WaitForChild("NoHack"):WaitForChild("HackComputer"):WaitForChild("Event"):FireServer()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1598.21265, 40.8205872, 501.045166, 0.996911049, -1.09473923e-08, 0.0785387158, 1.71928676e-08, 1, -7.88447849e-08, -0.0785387158, 7.99515405e-08, 0.996911049)
+	wait()
+end})
+
