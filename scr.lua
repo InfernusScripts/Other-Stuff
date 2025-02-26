@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/refs/heads/main/Core/Libraries/Fire-Lib/Main.lua"))()
 
-local window = lib:MakeWindow({Title = "Mad City, V1.005", CloseCallback = function()
+local window = lib:MakeWindow({Title = "Mad City, V1.006", CloseCallback = function()
 	print("Closed!")
 end, Size = UDim2.fromScale(1, 0.75), -- size is not important
 Theme = { -- theme is not important too
@@ -194,31 +194,31 @@ local button = page2:AddButton({Caption = "Auto Rob Bank", Callback = function()
 end})
 
 local button = page2:AddButton({Caption = "Auto Rob Casino", Callback = function()
-	local tws = game:GetService("TweenService")
-	local Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
-
-	local twi = TweenInfo.new(5, Enum.EasingStyle.Linear)
-
-	local twt = {CFrame = CFrame.new(1698.72766, 37.7780991, 786.99353, 0.988873422, -4.54507187e-08, -0.148759335, 4.0017909e-08, 1, -3.95139494e-08, 0.148759335, 3.31212568e-08, 0.988873422)}
-
-	local tw = tws:Create(Player, twi, twt)
-
-	tw:Play()
-	
+	local Player  = game.Players.LocalPlayer.Character.HumanoidRootPart
+	Player:PivotTo(workspace.ObjectSelection.HackComputer:GetPivot())
 	wait(1)
-
-	Player.CFrame = CFrame.new(1696.67773, 37.7780952, 738.859314, -0.989714384, -3.61272114e-08, 0.143057406, -4.89659122e-08, 1, -8.62245386e-08, -0.143057406, -9.23426029e-08, -0.989714384)
+	workspace.ObjectSelection.HackComputer.NoHack.HackComputer.Event:FireServer()
 	wait(1)
-	
-	local args = {
-		[1] = "PlaySound",
-		[2] = 1193305722,
-		[3] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-	}
-
-	game:GetService("ReplicatedStorage"):WaitForChild("Event"):FireServer(unpack(args))
-	workspace:WaitForChild("ObjectSelection"):WaitForChild("HackComputer"):WaitForChild("NoHack"):WaitForChild("HackComputer"):WaitForChild("Event"):FireServer()
-
+	Player.CFrame = CFrame.new(1622.81909, 40.8205872, 480.119843)
+	wait(1)
+	workspace.ObjectSelection.Lever3.Lever.Lever.Event:FireServer()
+	wait(1)
+	Player.CFrame = CFrame.new(1644.96655, 40.8205872, 448.478302)
+	wait(2)
+	workspace.ObjectSelection.Lever1.Lever.Lever.Event:FireServer()
+	wait(1)
+	Player.CFrame = CFrame.new(1744.73999, 40.8205872, 445.615234)
+	wait(2)
+	workspace.ObjectSelection.Lever4.Lever.Lever.Event:FireServer()
+	wait(1)
+	Player.CFrame = CFrame.new(1761.11121, 44.3470154, 498.181885)
+	wait(1)
+	workspace.ObjectSelection.Lever2.Lever.Lever.Event:FireServer()
+	wait(3)
+	Player.CFrame = CFrame.new(1695.49792, 40.9257507, 515.670776)
+	wait(30)
+	Teleport(CFrame.new(2046.75903, 173.487808, 422.014343, 0.0357422642, -2.03126227e-08, 0.999361038, 2.16764864e-08, 1, 1.95503489e-08, -0.999361038, 2.09638618e-08, 0.0357422642))
+	Player.CFrame = CFrame.new(2107.54932, 25.6119308, 423.184937)	
 end})
 
 local button = page2:AddButton({Caption = "Auto Rob Pyramid", Callback = function()
@@ -243,3 +243,6 @@ local button = page2:AddButton({Caption = "Auto Rob Pyramid", Callback = functio
 	
 	Player.CFrame = CFrame.new(1231.8031, 51053.5156, 464.780792, -0.997747123, -2.56663704e-08, 0.0670867115, -2.71697846e-08, 1, -2.1497641e-08, -0.0670867115, -2.32719408e-08, -0.997747123)
 end})
+
+
+workspace.ObjectSelection.Lever4.Lever.Lever.Event:FireServer()
